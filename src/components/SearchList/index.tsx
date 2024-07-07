@@ -1,11 +1,11 @@
-import { List } from '@components/List';
-import { ListItem } from '@components/ListItem';
-import { Loader } from '@components/Loader';
-import { SEARCH_KEY } from '@constants/index';
-import SearchContext from '@store/searchContext';
-import { fetchPlanets } from '@utils/fetchPlanets';
-import { getSavedValueByKey } from '@utils/getSavedValue';
-import { Component, ContextType } from 'react';
+import { List } from "@components/List";
+import { ListItem } from "@components/ListItem";
+import { Loader } from "@components/Loader";
+import { SEARCH_KEY } from "@constants/index";
+import SearchContext from "@store/searchContext";
+import { getSavedValueByKey } from "@utils/getSavedValue";
+import { loadPlanets } from "@utils/loadPlanets";
+import { Component, ContextType } from "react";
 
 export class SearchList extends Component {
   static contextType = SearchContext;
@@ -18,13 +18,7 @@ export class SearchList extends Component {
   componentDidMount() {
     const searchValue = getSavedValueByKey(SEARCH_KEY);
 
-    this.changeLoadingStatus(true);
-    fetchPlanets({ searchValue })
-      .then((response) => {
-        this.context.setPlanets(response.results);
-        this.changeLoadingStatus(false);
-      })
-      .catch(() => this.changeLoadingStatus(false));
+    loadPlanets(this)(searchValue);
   }
 
   render() {

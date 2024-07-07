@@ -1,4 +1,4 @@
-import { Planet } from '@constants/interfaces';
+import { Planet } from "@constants/interfaces";
 
 export interface SearchState {
   planets: Planet[];

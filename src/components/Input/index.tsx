@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { InputProps, InputState } from "./interfaces";
-import './index.css'
+import "./index.css";
 
 export class Input extends Component<InputProps, InputState> {
   render() {

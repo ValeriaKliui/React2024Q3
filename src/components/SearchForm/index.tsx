@@ -4,17 +4,17 @@ import {
   ContextType,
   FormEvent,
   ReactNode,
-} from 'react';
-import { Button } from '../Button';
-import { Input } from '../Input';
-import { SearchFormState } from './interfaces';
-import { getSavedValueByKey } from '@utils/getSavedValue';
-import { SEARCH_KEY } from '@constants/index';
-import { fetchPlanets } from '@utils/fetchPlanets';
-import SearchContext from '@store/searchContext';
-import './index.css'
+} from "react";
+import { Button } from "../Button";
+import { Input } from "../Input";
+import { SearchFormState } from "./interfaces";
+import { getSavedValueByKey } from "@utils/getSavedValue";
+import { SEARCH_KEY } from "@constants/index";
+import SearchContext from "@store/searchContext";
+import "./index.css";
+import { loadPlanets } from "@utils/loadPlanets";
 
-export class SearchForm extends Component<_, SearchFormState> {
+export class SearchForm extends Component<SearchFormState> {
   state = { searchValue: getSavedValueByKey(SEARCH_KEY) };
   static contextType = SearchContext;
   declare context: ContextType<typeof SearchContext>;
@@ -29,26 +29,19 @@ export class SearchForm extends Component<_, SearchFormState> {
 
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const { searchValue } = this.state;
-    const formattedSearch = searchValue.trim();
+    const formattedSearch = this.state.searchValue.trim();
 
     if (formattedSearch) {
-      localStorage.setItem('search', formattedSearch);
+      localStorage.setItem("search", formattedSearch);
     }
-    this.changeLoadingStatus(true);
-    fetchPlanets({ searchValue: formattedSearch }).then(
-      (response) => {
-        this.changeLoadingStatus(false);
-        this.context.setPlanets(response.results);
-      }
-    ).catch(() => this.changeLoadingStatus(false));
+    loadPlanets(this)(formattedSearch);
   };
 
   render(): ReactNode {
     const { handleSubmit, handleChange } = this;
 
     return (
-      <form onSubmit={handleSubmit} className='form'>
+      <form onSubmit={handleSubmit} className="form">
         <Input
           placeholder="Search..."
           value={this.state.searchValue}

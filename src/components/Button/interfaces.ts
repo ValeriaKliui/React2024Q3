@@ -1,4 +1,4 @@
-import { HTMLProps } from "react";
+import { HTMLAttributes } from "react";
 
-export interface ButtonProps extends HTMLProps<HTMLButtonElement> {}
+export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {}
 export interface ButtonState {}

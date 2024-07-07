@@ -4,21 +4,21 @@ import { SearchList } from "@components/SearchList";
 import { Planet } from "@constants/interfaces";
 import SearchContext from "@store/searchContext";
 import { Component } from "react";
-import './index.css'
+import "./index.css";
 
 export class MainPage extends Component {
   setPlanets = (planets: Planet[]) => {
     this.setState({ planets });
   };
   setIsLoading = (isLoading: boolean) => {
-    this.setState({ isLoading })
-  }
+    this.setState({ isLoading });
+  };
 
   state = {
     planets: [],
     setPlanets: this.setPlanets,
     isLoading: false,
-    setIsLoading: this.setIsLoading
+    setIsLoading: this.setIsLoading,
   };
 
   render() {
