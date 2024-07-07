@@ -7,14 +7,13 @@ import {
 } from "react";
 import { Button } from "../Button";
 import { Input } from "../Input";
-import { SearchFormState } from "./interfaces";
 import { getSavedValueByKey } from "@utils/getSavedValue";
 import { SEARCH_KEY } from "@constants/index";
 import SearchContext from "@store/searchContext";
 import "./index.css";
 import { loadPlanets } from "@utils/loadPlanets";
 
-export class SearchForm extends Component<SearchFormState> {
+export class SearchForm extends Component {
   state = { searchValue: getSavedValueByKey(SEARCH_KEY) };
   static contextType = SearchContext;
   declare context: ContextType<typeof SearchContext>;

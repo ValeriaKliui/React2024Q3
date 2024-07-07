@@ -1,13 +1,20 @@
-import { Component } from "react";
+import SearchContext from "@store/searchContext";
+import { Component, ContextType } from "react";
 import { fetchPlanets } from "./fetchPlanets";
 
-export const loadPlanets = (component: Component) => (searchValue: string) => {
-  component.changeLoadingStatus(true);
+interface FetchedComponent extends Component {
+  changeLoadingStatus: (status: boolean) => void;
+  context: ContextType<typeof SearchContext>;
+}
 
-  fetchPlanets({ searchValue })
-    .then((response) => {
-      component.context.setPlanets(response.results);
-      component.changeLoadingStatus(false);
-    })
-    .catch(() => component.changeLoadingStatus(false));
-};
+export const loadPlanets =
+  (component: FetchedComponent) => (searchValue: string) => {
+    component.changeLoadingStatus(true);
+
+    fetchPlanets({ searchValue })
+      .then((response) => {
+        component.context.setPlanets(response.results);
+        component.changeLoadingStatus(false);
+      })
+      .catch(() => component.changeLoadingStatus(false));
+  };

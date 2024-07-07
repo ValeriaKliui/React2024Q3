@@ -8,3 +8,6 @@ body {
 .text_primary {
   color: rgba(0, 123, 255, 1);
 }
+.text_bold {
+  font-weight: 700;
+}
