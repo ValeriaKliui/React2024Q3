@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, } from "react";
+import { ChangeEvent, FormEvent } from "react";
 import { Button } from "../Button";
 import { Input } from "../Input";
 import { SEARCH_KEY } from "@constants/index";
@@ -8,10 +8,13 @@ import { useLocalStorage } from "@hooks/useLocalStorage";
 
 export const SearchForm = () => {
   const loadPlanets = usePlanets();
-  const [savedSearchValue, saveSearchValue] = useLocalStorage<string>(SEARCH_KEY, '')
+  const [savedSearchValue, saveSearchValue] = useLocalStorage<string>(
+    SEARCH_KEY,
+    "",
+  );
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    saveSearchValue(event.target.value)
+    saveSearchValue(event.target.value);
   };
 
   const handleSubmit = (event: FormEvent) => {

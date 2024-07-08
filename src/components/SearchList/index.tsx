@@ -9,7 +9,7 @@ import { useContext, useEffect } from "react";
 
 export const SearchList = () => {
   const { isLoading, planets } = useContext(SearchContext);
-  const [savedSearchValue] = useLocalStorage(SEARCH_KEY, '')
+  const [savedSearchValue] = useLocalStorage(SEARCH_KEY, "");
 
   const loadPlanets = usePlanets();
 

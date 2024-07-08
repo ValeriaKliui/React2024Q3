@@ -15,7 +15,7 @@ export const usePlanets = () => {
         })
         .catch(() => setIsLoading(false));
     },
-    [setIsLoading, setPlanets]
+    [setIsLoading, setPlanets],
   );
 
   return loadPlanets;

@@ -12,7 +12,7 @@ export const MainPage = () => {
 
   const value = useMemo(
     () => ({ planets, setPlanets, isLoading, setIsLoading }),
-    [planets, setPlanets, isLoading, setIsLoading]
+    [planets, setPlanets, isLoading, setIsLoading],
   );
 
   return (
