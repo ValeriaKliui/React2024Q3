@@ -1,20 +1,15 @@
 import { Button } from "@components/Button";
-import { Component } from "react";
+import { useState } from "react";
 
-export class ErrorButton extends Component {
-  state = {
-    counter: 0,
-  };
-  handleClick = () => {
-    this.setState({
-      counter: this.state.counter + 1,
-    });
+export const ErrorButton = () => {
+  const [isError, setIsError] = useState(false);
+  const handleClick = () => {
+    setIsError(true);
   };
 
-  render() {
-    if (this.state.counter === 1) {
-      throw new Error("Planned error");
-    }
-    return <Button onClick={this.handleClick}>Error Button</Button>;
+  if (isError) {
+    throw new Error("Planned error");
   }
-}
+
+  return <Button onClick={handleClick}>Error Button</Button>;
+};

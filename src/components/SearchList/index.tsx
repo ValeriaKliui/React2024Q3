@@ -2,31 +2,23 @@ import { List } from "@components/List";
 import { ListItem } from "@components/ListItem";
 import { Loader } from "@components/Loader";
 import { SEARCH_KEY } from "@constants/index";
+import { usePlanets } from "@hooks/usePlanets";
 import SearchContext from "@store/searchContext";
 import { getSavedValueByKey } from "@utils/getSavedValue";
-import { loadPlanets } from "@utils/loadPlanets";
-import { Component, ContextType } from "react";
+import { useContext, useEffect } from "react";
 
-export class SearchList extends Component {
-  static contextType = SearchContext;
-  declare context: ContextType<typeof SearchContext>;
+export const SearchList = () => {
+  const { isLoading, planets } = useContext(SearchContext);
 
-  changeLoadingStatus = (isLoading: boolean) => {
-    this.context.setIsLoading(isLoading);
-  };
+  const loadPlanets = usePlanets();
 
-  componentDidMount() {
+  useEffect(() => {
     const searchValue = getSavedValueByKey(SEARCH_KEY);
 
-    loadPlanets(this)(searchValue);
-  }
+    loadPlanets({ searchValue });
+  }, [loadPlanets]);
 
-  render() {
-    const { planets, isLoading } = this.context;
-
-    if (isLoading) return <Loader />;
-    if (planets.length === 0) return <div>Planets weren't found</div>;
-
-    return <List items={planets} Item={ListItem} />;
-  }
-}
+  if (isLoading) return <Loader />;
+  if (planets.length === 0) return <div>Planets weren't found</div>;
+  return <List items={planets} Item={ListItem} />;
+};

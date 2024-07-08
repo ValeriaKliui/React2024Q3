@@ -1,11 +1,7 @@
-import { Component, ReactNode } from "react";
-import { ButtonProps, ButtonState } from "./interfaces";
+import { FC } from "react";
 import "./index.css";
+import { ButtonProps } from "./interfaces";
 
-export class Button extends Component<ButtonProps, ButtonState> {
-  render(): ReactNode {
-    const { children } = this.props;
-
-    return <button {...this.props}>{children}</button>;
-  }
-}
+export const Button: FC<ButtonProps> = ({ children, ...props }) => (
+  <button {...props}>{children}</button>
+);
