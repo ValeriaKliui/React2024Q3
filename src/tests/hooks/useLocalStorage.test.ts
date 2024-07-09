@@ -1,13 +1,12 @@
-import { expect, it, describe } from 'vitest';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { expect, it, describe, afterEach } from 'vitest';
+import { act, renderHook } from '@testing-library/react';
 import { useLocalStorage } from '@hooks/useLocalStorage';
-import { afterEach } from 'node:test';
 
 describe('useLocalStorage', () => {
   const key = 'bitter moon';
   const initialValue = 'is a good film';
   const value = 'is a BAD film';
-  afterEach(() => localStorage.clear(key));
+  afterEach(() => localStorage.clear());
 
   it('should return a default value', () => {
     const { result } = renderHook(() =>
@@ -31,13 +30,18 @@ describe('useLocalStorage', () => {
     expect(result.current[0]).toEqual(value);
   });
 
-  it('should work with bad values', () => {
+  it('should work with null/undefined values', () => {
     const { result } = renderHook(() => useLocalStorage(key, null));
 
     const [savedValue, saveValue] = result.current;
-    expect(savedValue).toEqual(null);
+    expect(savedValue).toEqual('');
     act(() => {
-      saveValue('');
+      saveValue(null);
+    });
+    expect(result.current[0]).toEqual('');
+
+    act(() => {
+      saveValue(undefined);
     });
     expect(result.current[0]).toEqual('');
   });
