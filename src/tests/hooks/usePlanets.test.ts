@@ -1,6 +1,6 @@
 import { it, describe, vi, beforeAll } from 'vitest';
 import { renderHook } from '@testing-library/react';
-import { usePlanets } from '@hooks/usePlanets';
+import { useFetchAndSet } from '@hooks/useFetchAndSet';
 
 describe('usePlanets', () => {
   const fetchSpy = vi.spyOn(global, 'fetch');
@@ -19,7 +19,7 @@ describe('usePlanets', () => {
   });
 
   it('should fetch movies', async () => {
-    const { result } = renderHook(() => usePlanets());
+    const { result } = renderHook(() => useFetchAndSet());
 
     const loadPlanets = result.current;
     loadPlanets({ searchValue: 'test' });

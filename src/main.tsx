@@ -1,13 +1,28 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { MainPage } from "@pages/main";
-import { ErrorBoundary } from "@components/ErrorBoundary";
-import "./index.css";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { MainPage } from '@pages/MainPage';
+import { ErrorBoundary } from '@components/ErrorBoundary';
+import './index.css';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
+import { ErrorPage } from '@pages/ErrorPage';
+import { DetailPage } from '@pages/DetailPage';
 
-createRoot(document.getElementById("root")!).render(
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <MainPage />,
+    errorElement: <ErrorPage />,
+    children: [{ path: '/detail', element: <DetailPage /> }]
+  },
+]);
+
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
-      <MainPage />
+      <RouterProvider router={router} />
     </ErrorBoundary>
-  </StrictMode>,
+  </StrictMode>
 );

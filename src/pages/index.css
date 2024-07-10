@@ -7,3 +7,6 @@
 .bottom {
   padding: 2em;
 }
+.splitted {
+  display: flex;
+}
