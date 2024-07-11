@@ -7,42 +7,44 @@ import { useFetchAndSet } from "@hooks/useFetchAndSet";
 import SearchContext from "@store/searchContext";
 import { fetchPlanets } from "@utils/fetchPlanets";
 import { useContext, useEffect } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getUrlFromParams } from "./getUrlFromParams";
 
 export const PlanetsList = () => {
-  const { isLoading, planets } = useContext(SearchContext);
-  const [searchValue] = useLocalStorage(SEARCH_KEY, "");
-  const { name } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { planets } = useLoaderData()
 
-  const navigate = useNavigate();
-  const { setIsLoading, setPlanets } = useContext(SearchContext);
-  console.log(searchParams);
+  // const { isLoading, planets } = useContext(SearchContext);
+  // const [searchValue] = useLocalStorage(SEARCH_KEY, "");
+  // const { name } = useParams();
+  // const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(() => {
-    let canceled = false;
-    let searchOptionsURL = getUrlFromParams(searchParams);
+  // const navigate = useNavigate();
+  // const { setIsLoading, setPlanets } = useContext(SearchContext);
+  // console.log(searchParams);
 
-    setIsLoading(true);
+  // useEffect(() => {
+  //   let canceled = false;
+  //   let searchOptionsURL = getUrlFromParams(searchParams);
 
-    fetch(BASE_URL + searchOptionsURL)
-      .then((response) => response.json())
-      .then((res) => setPlanets(res.results))
-      .catch(() => setIsLoading(false));
+  //   setIsLoading(true);
 
-    // fetchPlanets({ searchValue })
-    //   .then((response) => {
-    //     if (!canceled) {
-    //       setIsLoading(false);
-    //       setPlanets(response.results);
-    //     }
-    //   })
-    //   .catch(() => setIsLoading(false));
-    return () => {
-      canceled = true;
-    };
-  }, [setIsLoading, setPlanets]);
+  //   fetch(BASE_URL + searchOptionsURL)
+  //     .then((response) => response.json())
+  //     .then((res) => { setPlanets(res.results); setIsLoading(false) })
+  //     .catch(() => setIsLoading(false));
+
+  //   // fetchPlanets({ searchValue })
+  //   //   .then((response) => {
+  //   //     if (!canceled) {
+  //   //       setIsLoading(false);
+  //   //       setPlanets(response.results);
+  //   //     }
+  //   //   })
+  //   //   .catch(() => setIsLoading(false));
+  //   return () => {
+  //     canceled = true;
+  //   };
+  // }, [setIsLoading, setPlanets]);
 
   const onPlanetClick = (name: string) => {
     // navigate(`detail/${name}/`);
@@ -55,12 +57,12 @@ export const PlanetsList = () => {
     // // setUrlParams({ ...urlParams, page: "2" });
   };
 
-  useEffect(() => {
-    searchValue && setSearchParams({ ...searchParams, search: searchValue });
-  }, [searchValue, searchParams, setSearchParams]);
+  // useEffect(() => {
+  //   searchValue && setSearchParams({ ...searchParams, search: searchValue });
+  // }, [searchValue, searchParams, setSearchParams]);
 
-  if (isLoading) return <Loader />;
-  if (planets.length === 0) return <div>Planets weren't found</div>;
+  // if (isLoading) return <Loader />;
+  // if (planets.length === 0) return <div>Planets weren't found</div>;
 
   return (
     <List
