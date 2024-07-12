@@ -1,21 +1,19 @@
-import { ChangeEvent, FormEvent, useContext, useEffect } from 'react';
-import { Button } from '../Button';
-import { Input } from '../Input';
-import { SEARCH_KEY } from '@constants/index';
-import './index.css';
-import { useLocalStorage } from '@hooks/useLocalStorage';
-import { fetchPlanets } from '@utils/fetchPlanets';
-import SearchContext from '@store/searchContext';
-import { Form, useLoaderData, useSearchParams } from 'react-router-dom';
+import { ChangeEvent, FormEvent, useContext, useEffect } from "react";
+import { Button } from "../Button";
+import { Input } from "../Input";
+import { SEARCH_KEY } from "@constants/index";
+import "./index.css";
+import { useLocalStorage } from "@hooks/useLocalStorage";
+import { fetchPlanets } from "@utils/fetchPlanets";
+import SearchContext from "@store/searchContext";
+import { useSearchParams } from "react-router-dom";
 
 export const SearchForm = () => {
-  const { searchValue } = useLoaderData()
-  console.log(searchValue)
   const { setIsLoading, setPlanets } = useContext(SearchContext);
   // const loadPlanets = useFetchAndSet({ setIsLoading, setItems: setPlanets, fetchFunc: fetchPlanets });
   const [savedSearchValue, saveSearchValue] = useLocalStorage<string>(
     SEARCH_KEY,
-    ''
+    ""
   );
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,7 +27,7 @@ export const SearchForm = () => {
 
     const formattedSearch = savedSearchValue.trim();
 
-    // setSearchParams({ ...searchParams, search: formattedSearch });
+    setSearchParams({ ...searchParams, search: formattedSearch });
 
     // setIsLoading(true);
     // fetchPlanets({ searchValue: formattedSearch })
@@ -41,9 +39,13 @@ export const SearchForm = () => {
   };
 
   return (
-    <Form method="post" className='form'>
-      <Input placeholder="Search..." name="search" defaultValue={searchValue} />
+    <form onSubmit={handleSubmit} className="form">
+      <Input
+        placeholder="Search..."
+        value={savedSearchValue}
+        onChange={handleChange}
+      />
       <Button>Search!</Button>
-    </Form>
+    </form>
   );
 };
