@@ -2,7 +2,12 @@ import { Planet } from "@constants/interfaces";
 import "./index.css";
 import { ListItemProps } from "./interfaces";
 
-export const ListItem = ({ name, diameter, climate, onClick }: Planet & ListItemProps) => {
+export const ListItem = ({
+  name,
+  diameter,
+  climate,
+  onClick,
+}: Planet & ListItemProps) => {
   const diameterNumber = Number(diameter);
   const diameterFormatted = diameterNumber
     ? diameterNumber.toLocaleString() + " km"

@@ -2,62 +2,50 @@ import { List } from "@components/List";
 import { ListItem } from "@components/ListItem";
 import { Loader } from "@components/Loader";
 import { BASE_URL, SEARCH_KEY } from "@constants/index";
-import { useLocalStorage } from "@hooks/useLocalStorage";
-import { useFetchAndSet } from "@hooks/useFetchAndSet";
 import SearchContext from "@store/searchContext";
-import { fetchPlanets } from "@utils/fetchPlanets";
 import { useContext, useEffect } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { getUrlFromParams } from "./getUrlFromParams";
+import { usePlanets } from "@hooks/usePlanets";
 
 export const PlanetsList = () => {
-  const { isLoading, planets } = useContext(SearchContext);
-  const [searchValue] = useLocalStorage(SEARCH_KEY, "");
-  const { name } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { isLoading, setIsLoading, setPlanetsInfo } = useContext(SearchContext);
+  const planets = usePlanets();
 
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { setIsLoading, setPlanets } = useContext(SearchContext);
-  console.log(searchParams);
+
+  const onPlanetClick = (name: string) =>
+    navigate({
+      pathname: `detail/${name}`,
+      search: createSearchParams({
+        search: searchParams.get(SEARCH_KEY),
+      }).toString(),
+    });
+  const searchOptions = getUrlFromParams(searchParams);
 
   useEffect(() => {
     let canceled = false;
-    let searchOptionsURL = getUrlFromParams(searchParams);
 
     setIsLoading(true);
-
-    fetch(BASE_URL + searchOptionsURL)
+    fetch(BASE_URL + searchOptions)
       .then((response) => response.json())
-      .then((res) => setPlanets(res.results))
+      .then((res) => {
+        if (!canceled) {
+          setPlanetsInfo(res);
+          setIsLoading(false);
+        }
+      })
       .catch(() => setIsLoading(false));
 
-    // fetchPlanets({ searchValue })
-    //   .then((response) => {
-    //     if (!canceled) {
-    //       setIsLoading(false);
-    //       setPlanets(response.results);
-    //     }
-    //   })
-    //   .catch(() => setIsLoading(false));
     return () => {
       canceled = true;
     };
-  }, [setIsLoading, setPlanets]);
-
-  const onPlanetClick = (name: string) => {
-    // navigate(`detail/${name}/`);
-    // fetchPlanets({ searchValue: name })
-    //   .then((response) => {
-    //     setIsLoading(false);
-    //     setPlanets(response.results);
-    //   })
-    //   .catch(() => setIsLoading(false));
-    // // setUrlParams({ ...urlParams, page: "2" });
-  };
-
-  useEffect(() => {
-    searchValue && setSearchParams({ ...searchParams, search: searchValue });
-  }, [searchValue, searchParams, setSearchParams]);
+  }, [setIsLoading, searchOptions, setPlanetsInfo]);
 
   if (isLoading) return <Loader />;
   if (planets.length === 0) return <div>Planets weren't found</div>;
@@ -65,9 +53,7 @@ export const PlanetsList = () => {
   return (
     <List
       items={planets}
-      Item={({ name, ...props }) => (
-        <ListItem name={name} onClick={onPlanetClick} {...props} />
-      )}
+      Item={(props) => <ListItem onClick={onPlanetClick} {...props} />}
     />
   );
 };

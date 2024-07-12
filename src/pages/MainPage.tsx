@@ -6,14 +6,16 @@ import SearchContext from "@store/searchContext";
 import { useMemo, useState } from "react";
 import { Outlet } from "react-router-dom";
 import "./index.css";
+import { Pagination } from "@components/Pagination";
+import { PlanetInfo } from "@store/interfaces";
 
 export const MainPage = () => {
-  const [planets, setPlanets] = useState<Planet[]>([]);
+  const [planetsInfo, setPlanetsInfo] = useState<PlanetInfo>({});
   const [isLoading, setIsLoading] = useState(false);
 
   const value = useMemo(
-    () => ({ planets, setPlanets, isLoading, setIsLoading }),
-    [planets, setPlanets, isLoading, setIsLoading]
+    () => ({ planetsInfo, setPlanetsInfo, isLoading, setIsLoading }),
+    [planetsInfo, setPlanetsInfo, isLoading, setIsLoading]
   );
 
   return (
@@ -25,6 +27,7 @@ export const MainPage = () => {
       <div className={`bottom`}>
         <Outlet />
         <PlanetsList />
+        <Pagination />
       </div>
     </SearchContext.Provider>
   );

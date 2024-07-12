@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { SEARCH_KEY } from "@constants/index";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useBeforeUnload, useSearchParams } from "react-router-dom";
 
 export const useLocalStorage = <T>(key: string, initialValue?: T) => {
   const getInitialValue = () => {
@@ -7,13 +9,31 @@ export const useLocalStorage = <T>(key: string, initialValue?: T) => {
     return initialValue ?? "";
   };
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = useState(getInitialValue);
 
+  const valueRef = useRef();
+
   useEffect(() => {
-    if (value) localStorage.setItem(key, JSON.stringify(value));
-    if (!value) setValue("");
-    return () => localStorage.removeItem(key);
+    valueRef.current = value;
+    localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
+
+  useBeforeUnload(
+    useCallback(() => {
+      localStorage.setItem(key, JSON.stringify(valueRef.current));
+    }, [key])
+  );
+
+  useEffect(() => {
+    valueRef.current &&
+      setSearchParams({ ...searchParams, search: valueRef.current });
+
+    if (!valueRef.current) {
+      searchParams.delete(SEARCH_KEY);
+      setSearchParams(searchParams);
+    }
+  }, [setSearchParams, searchParams]);
 
   return [value, setValue];
 };

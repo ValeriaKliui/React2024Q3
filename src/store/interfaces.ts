@@ -1,8 +1,15 @@
 import { Planet } from "@constants/interfaces";
 
+export interface PlanetInfo {
+  count: number;
+  next: string;
+  previous: string;
+  results: Planet[];
+}
+
 export interface SearchState {
-  planets: Planet[];
-  setPlanets: (planets: Planet[]) => void;
+  planetsInfo: PlanetInfo;
+  setPlanetsInfo: (planetInfo: PlanetInfo) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
 }
