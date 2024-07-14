@@ -30,7 +30,7 @@ export const SearchForm = () => {
     event.preventDefault();
 
     const formattedSearch = savedSearchValue.trim();
-    setSearchParams({ ...searchParams, search: formattedSearch });
+    setSearchParams({ ...searchParams, page: '1', search: formattedSearch });
   };
 
   return (

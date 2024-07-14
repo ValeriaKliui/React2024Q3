@@ -30,6 +30,7 @@ export const PlanetsList = () => {
 
   useEffect(() => {
     let canceled = false;
+    // console.log(searchOptions)
 
     setIsLoading(true);
     fetch(BASE_URL + searchOptions)

@@ -1,23 +1,23 @@
-import { SEARCH_KEY } from "@constants/index";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useBeforeUnload, useSearchParams } from "react-router-dom";
+import { getUrlFromParams } from '@components/PlanetsList/getUrlFromParams';
+import { SEARCH_KEY } from '@constants/index';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useBeforeUnload, useSearchParams } from 'react-router-dom';
 
 export const useLocalStorage = <T>(key: string, initialValue?: T) => {
   const getInitialValue = () => {
     const savedValue = localStorage.getItem(key);
     if (savedValue) return JSON.parse(savedValue);
-    return initialValue ?? "";
+    return initialValue ?? '';
   };
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState(getInitialValue);
+  const valueRef = useRef(getInitialValue());
+  const setValue = (value: T) => (valueRef.current = value);
 
-  const valueRef = useRef();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    valueRef.current = value;
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
+    localStorage.setItem(key, JSON.stringify(valueRef.current));
+  }, [key]);
 
   useBeforeUnload(
     useCallback(() => {
@@ -26,14 +26,8 @@ export const useLocalStorage = <T>(key: string, initialValue?: T) => {
   );
 
   useEffect(() => {
-    valueRef.current &&
-      setSearchParams({ ...searchParams, search: valueRef.current });
+    setSearchParams({ ...searchParams, search: valueRef.current });
+  }, []);
 
-    if (!valueRef.current) {
-      searchParams.delete(SEARCH_KEY);
-      setSearchParams(searchParams);
-    }
-  }, [setSearchParams, searchParams]);
-
-  return [value, setValue];
+  return [valueRef.current, setValue];
 };

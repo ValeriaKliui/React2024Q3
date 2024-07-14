@@ -1,4 +1,5 @@
 import { Planet } from "@constants/interfaces";
+import { getDiameter } from "@utils/getDiameter";
 import "./index.css";
 import { ListItemProps } from "./interfaces";
 
@@ -8,10 +9,7 @@ export const ListItem = ({
   climate,
   onClick,
 }: Planet & ListItemProps) => {
-  const diameterNumber = Number(diameter);
-  const diameterFormatted = diameterNumber
-    ? diameterNumber.toLocaleString() + " km"
-    : "unknown";
+  const diameterFormatted = getDiameter(diameter)
 
   return (
     <div className="list_item" onClick={() => onClick(name)}>
