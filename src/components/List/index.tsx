@@ -1,10 +1,10 @@
 import { ListProps } from "./interfaces";
-import "./index.css";
+import { ListStyled } from "./styled";
 
 export const List = <T,>({ items, Item, onClick }: ListProps<T>) => (
-  <div className="list" onClick={onClick}>
+  <ListStyled onClick={onClick}>
     {items.map((item, index) => (
       <Item key={index} {...item} />
     ))}
-  </div>
+  </ListStyled>
 );

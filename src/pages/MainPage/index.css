@@ -4,9 +4,13 @@
   padding: 2em;
   background-color: rgba(0, 123, 255, 0.4);
 }
-.bottom {
+
+.content {
   padding: 2em;
+  flex-grow: 1;
 }
+
 .splitted {
   display: flex;
+  gap: 5em;
 }

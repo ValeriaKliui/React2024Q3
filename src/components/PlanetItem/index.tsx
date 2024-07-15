@@ -1,18 +1,18 @@
 import { Planet } from "@constants/interfaces";
 import { getDiameter } from "@utils/getDiameter";
-import "./index.css";
 import { ListItemProps } from "./interfaces";
+import { Container } from "./styled";
 
-export const ListItem = ({
+export const PlanetItem = ({
   name,
   diameter,
   climate,
   onClick,
 }: Planet & ListItemProps) => {
-  const diameterFormatted = getDiameter(diameter)
+  const diameterFormatted = getDiameter(diameter);
 
   return (
-    <div className="list_item" onClick={() => onClick(name)}>
+    <Container onClick={() => onClick(name)}>
       <h4 className="text_primary">{name}</h4>
       <p>
         <span className="text_bold">Diameter: </span>
@@ -22,6 +22,6 @@ export const ListItem = ({
         <span className="text_bold">Climate: </span>
         {climate}
       </p>
-    </div>
+    </Container>
   );
 };

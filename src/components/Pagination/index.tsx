@@ -1,42 +1,40 @@
-import { ITEMS_PER_PAGE, SEARCH_KEY } from '@constants/index';
-import { usePlanets } from '@hooks/usePlanets';
-import SearchContext from '@store/searchContext';
-import { useContext, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import './index.css';
+import { ITEMS_PER_PAGE, PAGE_KEY } from "@constants/index";
+import SearchContext from "@store/searchContext";
+import { useContext } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Container, Page } from "./styled";
 
 export const Pagination = () => {
   const { planetsInfo } = useContext(SearchContext);
-  const [choosenPage, choosePage] = useState(1);
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const choosenPage = Number(searchParams.get(PAGE_KEY)) || 1;
 
   const pagesAmount = planetsInfo.count
     ? Math.ceil(planetsInfo.count / ITEMS_PER_PAGE)
     : 0;
 
   const onPageClick = (pageNum: number) => {
-    choosePage(pageNum);
-    const search = searchParams.get(SEARCH_KEY);
-    if (search) setSearchParams({ ...searchParams, search, page: String(pageNum) })
-    else setSearchParams({ ...searchParams, page: String(pageNum) })
+    searchParams.set(PAGE_KEY, String(pageNum));
+    setSearchParams(searchParams);
   };
 
   return (
-    <div className="container">
+    <Container>
       {Array(pagesAmount)
         .fill(1)
         .map((_, index) => {
           const pageNum = index + 1;
           return (
-            <div
-              className={`page${choosenPage === pageNum ? ' active' : ''}`}
+            <Page
               onClick={() => onPageClick(pageNum)}
               key={pageNum}
+              $active={choosenPage === pageNum}
             >
               {pageNum}
-            </div>
+            </Page>
           );
         })}
-    </div>
+    </Container>
   );
 };

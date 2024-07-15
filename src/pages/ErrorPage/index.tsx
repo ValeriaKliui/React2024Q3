@@ -21,5 +21,10 @@ export const ErrorPage = () => {
     }
   }
 
-  return <div>Something went wrong</div>;
+  return (
+    <div style={{ padding: "2em" }}>
+      <h3>Something went wrong</h3>
+      <p>Please, refresh the page</p>
+    </div>
+  );
 };

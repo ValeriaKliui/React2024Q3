@@ -1,5 +1,7 @@
 import { FC } from "react";
 import { InputProps } from "./interfaces";
-import "./index.css";
+import { InputStyled } from "./styled";
 
-export const Input: FC<InputProps> = ({ ...props }) => <input {...props} />;
+export const Input: FC<InputProps> = ({ ...props }) => (
+  <InputStyled {...props} />
+);

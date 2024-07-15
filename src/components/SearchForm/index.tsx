@@ -1,10 +1,10 @@
-import { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Button } from "../Button";
 import { Input } from "../Input";
 import { SEARCH_KEY } from "@constants/index";
-import "./index.css";
 import { useLocalStorage } from "@hooks/useLocalStorage";
 import { useSearchParams } from "react-router-dom";
+import { Form } from "./styled";
 
 export const SearchForm = () => {
   const [savedSearchValue, saveSearchValue] = useLocalStorage<string>(
@@ -12,14 +12,8 @@ export const SearchForm = () => {
     ""
   );
 
-  const valueRef = useRef();
-
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const [searchValue, setSearchValue] = useState(() => {
-    valueRef.current = savedSearchValue;
-    return savedSearchValue || "";
-  });
+  const [searchValue, setSearchValue] = useState(savedSearchValue || "");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -29,18 +23,30 @@ export const SearchForm = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    const formattedSearch = savedSearchValue.trim();
-    setSearchParams({ ...searchParams, page: '1', search: formattedSearch });
+    const formattedSearch = searchValue.trim();
+    setSearchParams((prevParams) => ({
+      ...prevParams,
+      page: "1",
+      search: formattedSearch,
+    }));
   };
 
+  useEffect(() => {
+    const initURLPage = searchParams.get(SEARCH_KEY);
+    if (initURLPage) {
+      setSearchValue(initURLPage);
+      saveSearchValue(initURLPage);
+    }
+  }, [searchParams, saveSearchValue]);
+
   return (
-    <form onSubmit={handleSubmit} className="form">
+    <Form onSubmit={handleSubmit}>
       <Input
         placeholder="Search..."
         value={searchValue}
         onChange={handleChange}
       />
       <Button>Search!</Button>
-    </form>
+    </Form>
   );
 };

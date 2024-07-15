@@ -1,25 +1,31 @@
 import { ErrorButton } from "@components/ErrorButon";
 import { SearchForm } from "@components/SearchForm";
 import { PlanetsList } from "@components/PlanetsList";
-import { Planet } from "@constants/interfaces";
 import SearchContext from "@store/searchContext";
 import { useMemo, useState } from "react";
-import { Outlet, useParams, useSearchParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import "./index.css";
 import { Pagination } from "@components/Pagination";
 import { PlanetInfo } from "@store/interfaces";
+import { useDetail } from "@hooks/useDetail";
+
+const initialValue: PlanetInfo = {
+  count: 0,
+  next: "",
+  previous: "",
+  results: [],
+};
 
 export const MainPage = () => {
-  const [planetsInfo, setPlanetsInfo] = useState<PlanetInfo>({});
+  const [planetsInfo, setPlanetsInfo] = useState<PlanetInfo>(initialValue);
   const [isLoading, setIsLoading] = useState(false);
-  const { name } = useParams()
 
   const value = useMemo(
     () => ({ planetsInfo, setPlanetsInfo, isLoading, setIsLoading }),
     [planetsInfo, setPlanetsInfo, isLoading, setIsLoading]
   );
 
-  const isDetailOpened = !!name
+  const { isDetailOpened } = useDetail();
 
   return (
     <SearchContext.Provider value={value}>
@@ -27,7 +33,7 @@ export const MainPage = () => {
         <SearchForm />
         <ErrorButton />
       </div>
-      <div className={`bottom ${isDetailOpened ? 'splitted' : ''}`}>
+      <div className={`content ${isDetailOpened ? "splitted" : ""}`}>
         <PlanetsList />
         <Outlet />
       </div>

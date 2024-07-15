@@ -6,6 +6,13 @@ describe("useLocalStorage", () => {
   const key = "bitter moon";
   const initialValue = "is a good film";
   const value = "is a BAD film";
+
+  const mockUsedLocation = jest.fn();
+  jest.mock("react-router-dom", () => ({
+    ...jest.requireActual("react-router-dom"),
+    useLocation: () => mockUsedLocation,
+  }));
+
   afterEach(() => localStorage.clear());
 
   it("should return a default value", () => {

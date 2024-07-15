@@ -1,6 +1,7 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
 import { resolve } from "path";
+import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
   test: { environment: "jsdom" },
@@ -17,5 +18,16 @@ export default defineConfig({
       "@utils": resolve(__dirname, "./src/utils"),
     },
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    svgr({
+      svgrOptions: {
+        exportType: "default",
+        ref: true,
+        svgo: false,
+        titleProp: true,
+      },
+      include: "**/*.svg",
+    }),
+  ],
 });

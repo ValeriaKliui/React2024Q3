@@ -1,6 +1,6 @@
 import { Component, ErrorInfo } from "react";
 import { ErrorBoundaryProps, ErrorBoundaryState } from "./interfaces";
-import "./index.css";
+import { Container } from "./styled";
 
 export class ErrorBoundary extends Component<
   ErrorBoundaryProps,
@@ -27,10 +27,10 @@ export class ErrorBoundary extends Component<
   render() {
     if (this.state.hasError) {
       return (
-        <div className="container">
+        <Container>
           <h3>Sorry.. there was an error</h3>
           <button onClick={this.resetError}>OK</button>
-        </div>
+        </Container>
       );
     }
     return this.props.children;
