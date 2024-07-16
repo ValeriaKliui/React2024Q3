@@ -4,7 +4,6 @@ import { resolve } from "path";
 import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
-  test: { environment: "jsdom" },
   resolve: {
     alias: {
       "@assets": resolve(__dirname, "./src/assets"),
@@ -30,4 +29,9 @@ export default defineConfig({
       include: "**/*.svg",
     }),
   ],
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: ["./setupTests.ts"],
+  },
 });

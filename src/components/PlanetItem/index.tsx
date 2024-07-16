@@ -12,7 +12,7 @@ export const PlanetItem = ({
   const diameterFormatted = getDiameter(diameter);
 
   return (
-    <Container onClick={() => onClick(name)}>
+    <Container onClick={() => onClick(name)} data-testid="planet">
       <h4 className="text_primary">{name}</h4>
       <p>
         <span className="text_bold">Diameter: </span>

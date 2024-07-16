@@ -12,7 +12,7 @@ export const DetailInfo: FC<DetailInfoProps> = ({
   const diameterFormatted = getDiameter(diameter);
 
   return (
-    <div>
+    <div data-testid="detail_info">
       <h3 className="text_primary">{name}</h3>
       <p>
         <span className="text_bold">Diameter: </span>

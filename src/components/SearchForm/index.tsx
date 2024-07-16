@@ -9,7 +9,7 @@ import { Form } from "./styled";
 export const SearchForm = () => {
   const [savedSearchValue, saveSearchValue] = useLocalStorage<string>(
     SEARCH_KEY,
-    ""
+    "",
   );
 
   const [searchParams, setSearchParams] = useSearchParams();

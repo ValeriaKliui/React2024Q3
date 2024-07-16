@@ -1,3 +1,3 @@
 export interface ListItemProps {
-    onClick: (name: string) => void
+  onClick: (name: string) => void;
 }

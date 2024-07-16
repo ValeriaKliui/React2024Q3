@@ -11,7 +11,8 @@ import { useFetchPlanets } from "@hooks/useFetchPlanets";
 import { PlanetInfo } from "@store/interfaces";
 
 export const PlanetsList = () => {
-  const { isLoading, setIsLoading, setPlanetsInfo } = useContext(SearchContext);
+  const { isLoading, setIsLoading, setPlanetsInfo, planetsInfo } =
+    useContext(SearchContext);
   const planets = usePlanets();
 
   const [searchParams] = useSearchParams();
@@ -33,14 +34,16 @@ export const PlanetsList = () => {
 
   return (
     <Container>
-      {isLoading && <Loader />}
-      {planets.length === 0 && !isLoading && <h3>Planets weren't found</h3>}
-      {planets.length && !isLoading && (
+      {planets.length === 0 &&
+        (isLoading ? <Loader /> : <h3>Planets weren't found</h3>)}
+      {planets.length && !isLoading ? (
         <List
           items={planets}
           onClick={closeDetail}
           Item={(props) => <PlanetItem onClick={openDetail} {...props} />}
         />
+      ) : (
+        <></>
       )}
     </Container>
   );

@@ -11,7 +11,6 @@ export const useFetchPlanets = ({
     let canceled = false;
 
     setIsLoading(true);
-
     fetch(BASE_URL + "?" + searchUrl)
       .then((response) => response.json())
       .then((res) => {

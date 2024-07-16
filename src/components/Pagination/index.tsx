@@ -2,7 +2,7 @@ import { ITEMS_PER_PAGE, PAGE_KEY } from "@constants/index";
 import SearchContext from "@store/searchContext";
 import { useContext } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Container, Page } from "./styled";
+import { Pages } from "@components/Pages";
 
 export const Pagination = () => {
   const { planetsInfo } = useContext(SearchContext);
@@ -20,21 +20,10 @@ export const Pagination = () => {
   };
 
   return (
-    <Container>
-      {Array(pagesAmount)
-        .fill(1)
-        .map((_, index) => {
-          const pageNum = index + 1;
-          return (
-            <Page
-              onClick={() => onPageClick(pageNum)}
-              key={pageNum}
-              $active={choosenPage === pageNum}
-            >
-              {pageNum}
-            </Page>
-          );
-        })}
-    </Container>
+    <Pages
+      pagesAmount={pagesAmount}
+      choosenPage={choosenPage}
+      onPageClick={onPageClick}
+    />
   );
 };

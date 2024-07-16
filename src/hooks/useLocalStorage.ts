@@ -22,7 +22,7 @@ export const useLocalStorage = <T>(key: string, initialValue?: T) => {
     useCallback(() => {
       console.log(valueRef.current);
       localStorage.setItem(key, JSON.stringify(valueRef.current));
-    }, [key])
+    }, [key]),
   );
 
   useEffect(() => {

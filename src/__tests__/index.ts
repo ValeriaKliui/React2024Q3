@@ -1,0 +1,46 @@
+import { SearchState } from "@store/interfaces";
+
+export const INIT_TEST_STATE: SearchState = {
+  planetsInfo: {
+    count: 60,
+    next: "",
+    previous: "",
+    results: [
+      {
+        name: "Zorro",
+        rotation_period: "5",
+        diameter: "123",
+        climate: "temperate",
+        gravity: "none",
+        orbital_period: "",
+        terrain: "",
+        surface_water: "",
+        population: "",
+        residents: [],
+        films: [],
+        created: "",
+        edited: "",
+        url: "",
+      },
+      {
+        name: "Lovina",
+        rotation_period: "25",
+        diameter: "23",
+        climate: "temperate",
+        gravity: "none",
+        orbital_period: "",
+        terrain: "",
+        surface_water: "",
+        population: "",
+        residents: [],
+        films: [],
+        created: "",
+        edited: "",
+        url: "",
+      },
+    ],
+  },
+  setIsLoading: () => {},
+  setPlanetsInfo: () => {},
+  isLoading: false,
+};
