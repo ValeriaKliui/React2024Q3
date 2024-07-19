@@ -1,6 +1,5 @@
-import { Planet } from "@constants/interfaces";
 import { getDiameter } from "@utils/getDiameter";
-import { ListItemProps } from "./interfaces";
+import { PlanetItemProps } from "./interfaces";
 import { Container } from "./styled";
 
 export const PlanetItem = ({
@@ -8,7 +7,7 @@ export const PlanetItem = ({
   diameter,
   climate,
   onClick,
-}: Planet & ListItemProps) => {
+}: PlanetItemProps) => {
   const diameterFormatted = getDiameter(diameter);
 
   return (

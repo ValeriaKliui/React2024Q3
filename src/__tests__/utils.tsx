@@ -7,7 +7,7 @@ import { initialState } from "@store/searchContext";
 
 const customRender = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
+  options?: Omit<RenderOptions, "wrapper">,
 ) => {
   const withoutState = options?.state === false;
   const state = withoutState ? initialState : INIT_TEST_STATE;

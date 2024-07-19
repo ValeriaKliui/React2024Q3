@@ -15,9 +15,7 @@ export const DetailedCard = () => {
   const { closeDetail } = useDetail();
 
   const setItems = useCallback(
-    (res: PlanetInfo) => {
-      setPlanet(res.results[0]);
-    },
+    (res: PlanetInfo) => setPlanet(res.results[0]),
     [setPlanet],
   );
 

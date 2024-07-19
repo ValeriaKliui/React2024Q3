@@ -22,7 +22,7 @@ export const PlanetsList = () => {
     (res: PlanetInfo) => {
       setPlanetsInfo(res);
     },
-    [setPlanetsInfo]
+    [setPlanetsInfo],
   );
 
   useFetchPlanets({
@@ -41,9 +41,7 @@ export const PlanetsList = () => {
           onClick={closeDetail}
           Item={(props) => <PlanetItem onClick={openDetail} {...props} />}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </Container>
   );
 };

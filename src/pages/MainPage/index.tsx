@@ -22,7 +22,7 @@ export const MainPage = () => {
 
   const value = useMemo(
     () => ({ planetsInfo, setPlanetsInfo, isLoading, setIsLoading }),
-    [planetsInfo, setPlanetsInfo, isLoading, setIsLoading]
+    [planetsInfo, setPlanetsInfo, isLoading, setIsLoading],
   );
 
   const { isDetailOpened } = useDetail();

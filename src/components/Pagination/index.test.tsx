@@ -15,7 +15,7 @@ describe("Pagination", () => {
       <>
         <a href={initPageUrl}>on {pagesAmount} page</a>
         <Pagination />
-      </>
+      </>,
     );
     const pages = getAllByRole("generic", { name: /page/i });
     const lastPageIndex = pages.length - 1;
@@ -31,7 +31,7 @@ describe("Pagination", () => {
     const { user } = setup(
       <>
         <Pagination />
-      </>
+      </>,
     );
 
     await user.click(screen.getByRole("generic", { name: `${newPage} page` }));
