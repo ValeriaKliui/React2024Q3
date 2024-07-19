@@ -1,42 +1,40 @@
-import { fireEvent, render } from "@testing-library/react";
 import { Pagination } from ".";
-import {
-  it,
-  describe,
-  vi,
-  beforeAll,
-  beforeEach,
-  afterEach,
-  expect,
-} from "vitest";
-import { BrowserRouter } from "react-router-dom";
-import { screen, configure } from "@testing-library/react";
-import SearchContext from "@store/searchContext";
-import { INIT_TEST_STATE } from "../../__tests__";
+import { screen } from "@testing-library/react";
+import { render, setup } from "../../__tests__/utils";
 
-const initPage = 5;
-const initPageUrl = `/?page=${initPage}`;
+const pagesAmount = 6;
+const initPageUrl = `/?page=${pagesAmount}`;
 
 describe("Pagination", () => {
   beforeEach(() => {
     window.history.replaceState("", "", initPageUrl);
-    render(
-      <SearchContext.Provider value={INIT_TEST_STATE}>
-        <BrowserRouter>
-          <a href={initPageUrl}>on {initPage} page</a>
-          <Pagination />
-        </BrowserRouter>
-      </SearchContext.Provider>
+  });
+
+  it(`should display ${pagesAmount} pages`, () => {
+    const { getAllByRole } = render(
+      <>
+        <a href={initPageUrl}>on {pagesAmount} page</a>
+        <Pagination />
+      </>
     );
+    const pages = getAllByRole("generic", { name: /page/i });
+    const lastPageIndex = pages.length - 1;
+    const lastPage = pages[lastPageIndex];
+
+    expect(pages.length).toEqual(pagesAmount);
+    expect(lastPage.textContent).toEqual(String(pagesAmount));
   });
 
-  it("should display 6 pages", () => {
-    expect(screen.getByText(initPage)).toBeInTheDocument();
-  });
+  it("should change URL after clicking on another page", async () => {
+    const newPage = 2;
 
-  it("should change URL after clicking on another page", () => {
-    const newPage = 3;
-    fireEvent.click(screen.getByText(newPage));
+    const { user } = setup(
+      <>
+        <Pagination />
+      </>
+    );
+
+    await user.click(screen.getByRole("generic", { name: `${newPage} page` }));
     expect(window.location.href).toContain(`page=${newPage}`);
   });
 });

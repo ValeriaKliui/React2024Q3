@@ -18,7 +18,7 @@ export const DetailedCard = () => {
     (res: PlanetInfo) => {
       setPlanet(res.results[0]);
     },
-    [setPlanet]
+    [setPlanet],
   );
 
   useFetchPlanets({

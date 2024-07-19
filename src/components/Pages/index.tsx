@@ -17,6 +17,7 @@ export const Pages: FC<PagesProps> = ({
             onClick={() => onPageClick(pageNum)}
             key={pageNum}
             $active={choosenPage === pageNum}
+            aria-label={`${pageNum} page`}
           >
             {pageNum}
           </Page>

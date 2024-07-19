@@ -1,46 +1,66 @@
-import {
-  fireEvent,
-  render,
-  waitForElementToBeRemoved,
-  screen,
-} from "@testing-library/react";
-import { INIT_TEST_STATE } from "../../__tests__";
-import SearchContext from "@store/searchContext";
-import { BrowserRouter } from "react-router-dom";
+import { act, waitForElementToBeRemoved } from "@testing-library/react";
+import { INIT_TEST_STATE } from "../../__tests__/mocks";
 import { DetailedCard } from ".";
-import { Mock, vi } from "vitest";
-import { getDiameter } from "@utils/getDiameter";
-import { DetailPage } from "@pages/DetailPage";
-import { PlanetItem } from "@components/PlanetItem";
-import { PlanetsList } from "@components/PlanetsList";
+import { vi } from "vitest";
+import { render } from "../../__tests__/utils";
 import { MainPage } from "@pages/MainPage";
+import { DetailPage } from "@pages/DetailPage";
 
-const planet = INIT_TEST_STATE.planetsInfo.results[0];
+// const planet = INIT_TEST_STATE.planetsInfo.results[0];
 
-global.fetch = vi.fn((param) => {
-  // if (param.includes(planet.name))
-  //   return Promise.resolve({
-  //     json: () => Promise.resolve(INIT_TEST_STATE),
-  //   });
-  // else return Promise.reject();
-  return Promise.resolve({
-    json: () => Promise.resolve(INIT_TEST_STATE.planetsInfo),
-  });
-}) as Mock;
+export const fetchResponseOk = (body) => ({
+  ok: true,
+  json: () => Promise.resolve(body),
+});
 
-describe("", () => {
-  it("", () => {
-    const { getByText } = render(
-      <SearchContext.Provider value={INIT_TEST_STATE}>
-        <BrowserRouter>
-          <MainPage />
-        </BrowserRouter>
-      </SearchContext.Provider>
+// global.fetch = vi.fn(() => {
+//   return Promise.resolve({
+//     json: () => Promise.resolve(INIT_TEST_STATE),
+//   });
+// }) as Mock;
+
+describe("detailedCard", () => {
+  beforeEach(() => {
+    vi.spyOn(global, "fetch").mockResolvedValue(
+      fetchResponseOk(INIT_TEST_STATE)
     );
+  });
 
-    screen.debug();
+  it("loading indicator is displayed while fetching data", async () => {
+    const { getByTestId } = render(<DetailedCard />);
 
+    await waitForElementToBeRemoved(() => getByTestId("detail_loader"));
+
+    // screen.debug();
+    // const { getByTestId } = render(<DetailedCard />);
+    // await wait(() => expect(getByTestId("detail_loader")).toBeInTheDocument());
     // fireEvent.click(getByText(planet.name));
+  });
+
+  it("detailed card component correctly displays the detailed card data", async () => {
+    await act(() => {
+      render(
+        <>
+          <MainPage />
+          <DetailPage />
+        </>
+      );
+    });
+    // screen.debug();
+
+    // const { getByText, getByTestId } = render(
+    //   <>
+    //     <MainPage />
+    //     <DetailPage />
+    //   </>
+    // );
+    //
+    // screen.debug();
+    // fireEvent.click(getByTestId("planet"));
+    //
+    // //
+    // // expect(getByText(planet.name)).toBeInTheDocument();
+    // // expect(getByText(getDiameter(planet.diameter))).toBeInTheDocument();
   });
 });
 

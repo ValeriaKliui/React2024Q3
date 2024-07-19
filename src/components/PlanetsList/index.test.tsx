@@ -1,27 +1,29 @@
-import SearchContext from "@store/searchContext";
-import { render, screen } from "@testing-library/react";
-import { describe, it, vi, Mock } from "vitest";
-import { INIT_TEST_STATE } from "../../__tests__";
-import { BrowserRouter } from "react-router-dom";
 import { PlanetsList } from ".";
+import { INIT_TEST_STATE } from "../../__tests__/mocks";
+import { render } from "../../__tests__/utils";
+import { screen } from "@testing-library/react";
 
 describe("planetsList", () => {
   it("appropriate message is displayed if no cards are present", () => {
-    global.fetch = vi.fn(() => {
-      return Promise.resolve({
-        json: () => Promise.reject(INIT_TEST_STATE.planetsInfo),
-      });
-    }) as Mock;
+    render(<PlanetsList />, { state: false });
 
-    render(
-      <SearchContext.Provider value={INIT_TEST_STATE}>
-        <BrowserRouter>
-          <PlanetsList />
-        </BrowserRouter>
-      </SearchContext.Provider>
-    );
-
-    screen.debug();
+    expect(screen.getByText(/weren't found/i)).toBeInTheDocument();
   });
-  it("component renders the specified number of cards", () => {});
+  it("component renders the specified number of cards", () => {
+    const planets = INIT_TEST_STATE.planetsInfo.results;
+
+    render(<PlanetsList />);
+
+    expect(screen.getAllByTestId("planet").length).toEqual(planets.length);
+  });
+
+  it("list renders items according to data", () => {
+    const planets = INIT_TEST_STATE.planetsInfo.results;
+
+    render(<PlanetsList />);
+
+    planets.forEach((planet) => {
+      expect(screen.getByText(planet.name)).toBeInTheDocument();
+    });
+  });
 });

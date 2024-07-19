@@ -11,8 +11,7 @@ import { useFetchPlanets } from "@hooks/useFetchPlanets";
 import { PlanetInfo } from "@store/interfaces";
 
 export const PlanetsList = () => {
-  const { isLoading, setIsLoading, setPlanetsInfo, planetsInfo } =
-    useContext(SearchContext);
+  const { isLoading, setIsLoading, setPlanetsInfo } = useContext(SearchContext);
   const planets = usePlanets();
 
   const [searchParams] = useSearchParams();
