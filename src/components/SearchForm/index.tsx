@@ -45,6 +45,7 @@ export const SearchForm = () => {
         placeholder="Search..."
         value={searchValue}
         onChange={handleChange}
+        aria-label="search"
       />
       <Button>Search!</Button>
     </Form>

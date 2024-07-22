@@ -1,6 +1,6 @@
-import { PlanetsList } from ".";
-import { INIT_TEST_STATE } from "../../__tests__/mocks";
-import { render } from "../../__tests__/utils";
+import { PlanetsList } from "@components/PlanetsList";
+import { INIT_TEST_STATE } from "../mocks";
+import { render } from "../utils";
 import { screen } from "@testing-library/react";
 
 describe("planetsList", () => {

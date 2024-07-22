@@ -1,9 +1,9 @@
 import { act, screen } from "@testing-library/react";
-import { DetailedCard } from ".";
-import { render } from "../../__tests__/utils";
+import { render } from "../utils";
 import { vi } from "vitest";
-import { INIT_TEST_STATE } from "../../__tests__/mocks";
+import { INIT_TEST_STATE } from "../mocks";
 import { getDiameter } from "@utils/getDiameter";
+import { DetailedCard } from "@components/DetailedCard";
 
 export const fetchResponseOk = <T,>(body: T) => ({
   ok: true,
@@ -17,9 +17,10 @@ describe("detailedCard", () => {
 
     expect(screen.getByTestId("detail_loader")).toBeInTheDocument();
   });
+
   it("detailed card component correctly displays the detailed card data", async () => {
     vi.spyOn(global, "fetch").mockResolvedValue(
-      fetchResponseOk(INIT_TEST_STATE.planetsInfo)
+      fetchResponseOk(INIT_TEST_STATE.planetsInfo),
     );
 
     await act(() => render(<DetailedCard />));

@@ -1,6 +1,6 @@
-import { Pagination } from ".";
 import { screen } from "@testing-library/react";
-import { render, setup } from "../../__tests__/utils";
+import { render, setup } from "../utils";
+import { Pagination } from "@components/Pagination";
 
 const pagesAmount = 6;
 const initPageUrl = `/?page=${pagesAmount}`;
