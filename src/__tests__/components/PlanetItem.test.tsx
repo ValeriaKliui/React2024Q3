@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { render, setup } from "../utils";
+import { renderWithRouter, setup } from "../utils";
 import { PlanetItem } from "@components/PlanetItem";
 import { screen } from "@testing-library/react";
 import { getDiameter } from "@utils/getDiameter";
@@ -19,7 +19,7 @@ const PlanetComponent = (
 
 describe("planetItem", () => {
   it("card component renders the relevant card data", () => {
-    render(PlanetComponent);
+    renderWithRouter(PlanetComponent);
 
     expect(screen.getByText(name)).toBeInTheDocument();
     expect(screen.getByText(getDiameter(diameter))).toBeInTheDocument();

@@ -5,9 +5,9 @@ import { INIT_TEST_STATE } from "./mocks";
 import { ProvidersWrapper } from "./ProvidersWrapper";
 import { initialState } from "@store/searchContext";
 
-const customRender = (
+const renderWithRouter = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">,
+  options?: Omit<RenderOptions, "wrapper">
 ) => {
   const withoutState = options?.state === false;
   const state = withoutState ? initialState : INIT_TEST_STATE;
@@ -21,7 +21,7 @@ const customRender = (
 };
 const setup = (ui: ReactElement) => ({
   user: userEvent.setup(),
-  ...customRender(ui),
+  ...renderWithRouter(ui),
 });
 
-export { customRender as render, setup };
+export { renderWithRouter, setup };
