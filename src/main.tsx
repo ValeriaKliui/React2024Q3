@@ -7,6 +7,8 @@ import { DetailPage } from "@pages/DetailPage";
 import { MainPage } from "@pages/MainPage";
 import { GlobalStyles } from "./globalStyles";
 import { ThemeProvider } from "@components/ThemeProvider";
+import { Provider } from "react-redux";
+import { store } from "@store/store";
 
 const router = createBrowserRouter([
   {
@@ -22,8 +24,10 @@ createRoot(document.getElementById("root")!).render(
     <ErrorBoundary>
       <ThemeProvider>
         <GlobalStyles />
-        <RouterProvider router={router} />
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
       </ThemeProvider>
     </ErrorBoundary>
-  </StrictMode>,
+  </StrictMode>
 );

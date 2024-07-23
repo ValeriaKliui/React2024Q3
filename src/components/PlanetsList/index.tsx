@@ -1,35 +1,25 @@
 import { List } from "@components/List";
 import { PlanetItem } from "@components/PlanetItem";
 import { Loader } from "@components/Loader";
-import SearchContext from "@store/searchContext";
-import { useCallback, useContext } from "react";
 import { useSearchParams } from "react-router-dom";
-import { usePlanets } from "@hooks/usePlanets";
 import { useDetail } from "@hooks/useDetail";
 import { Container } from "./styled";
-import { useFetchPlanets } from "@hooks/useFetchPlanets";
-import { PlanetInfo } from "@store/interfaces";
+import { useGetPlanetsQuery } from "@store/services/planetsApi";
+import { useAppSelector } from "@hooks/reduxTypedHooks";
+import { selectPlanets } from "@store/selectors/planetsSelectors";
 
 export const PlanetsList = () => {
-  const { isLoading, setIsLoading, setPlanetsInfo } = useContext(SearchContext);
-  const planets = usePlanets();
-
   const [searchParams] = useSearchParams();
 
-  const { openDetail, closeDetail } = useDetail();
-
-  const setItems = useCallback(
-    (res: PlanetInfo) => {
-      setPlanetsInfo(res);
-    },
-    [setPlanetsInfo],
-  );
-
-  useFetchPlanets({
-    searchUrl: searchParams.toString(),
-    setIsLoading,
-    setItems,
+  const searchUrlParams = searchParams.toString();
+  const { isLoading } = useGetPlanetsQuery({
+    searchUrlParams,
   });
+
+  const planets = useAppSelector(selectPlanets);
+
+  const { openDetail, closeDetail } = useDetail();
+  console.log(planets.length, isLoading);
 
   return (
     <Container>

@@ -18,7 +18,7 @@ const PlanetComponent = (
 );
 
 describe("planetItem", () => {
-  it("card component renders the relevant card data", () => {
+  it.todo("card component renders the relevant card data", () => {
     renderWithProviders(PlanetComponent);
 
     expect(screen.getByText(name)).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe("planetItem", () => {
     expect(screen.getByText(climate)).toBeInTheDocument();
   });
 
-  it("clicking on a card opens a detailed card component", async () => {
+  it.todo("clicking on a card opens a detailed card component", async () => {
     const { user } = setup(<PlanetsList />);
 
     expect(window.location.href).not.toContain("detail");

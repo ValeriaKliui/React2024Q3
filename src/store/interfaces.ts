@@ -1,7 +1,7 @@
 import { ThemeEnum } from "@components/ThemeProvider/interfaces";
 import { Planet } from "@constants/interfaces";
 
-export interface PlanetInfo {
+export interface PlanetsInfo {
   count: number;
   next: string;
   previous: string;
@@ -9,8 +9,8 @@ export interface PlanetInfo {
 }
 
 export interface SearchState {
-  planetsInfo: PlanetInfo;
-  setPlanetsInfo: (planetInfo: PlanetInfo) => void;
+  planetsInfo: PlanetsInfo;
+  setPlanetsInfo: (PlanetsInfo: PlanetsInfo) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
 }

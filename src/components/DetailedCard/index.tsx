@@ -16,7 +16,7 @@ export const DetailedCard = () => {
 
   const setItems = useCallback(
     (res: PlanetInfo) => setPlanet(res.results[0]),
-    [setPlanet],
+    [setPlanet]
   );
 
   useFetchPlanets({

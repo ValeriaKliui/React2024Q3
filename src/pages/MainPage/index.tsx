@@ -4,11 +4,11 @@ import { useMemo, useState } from "react";
 import { Outlet } from "react-router-dom";
 import "./index.css";
 import { Pagination } from "@components/Pagination";
-import { PlanetInfo } from "@store/interfaces";
+import { PlanetsInfo } from "@store/interfaces";
 import { useDetail } from "@hooks/useDetail";
 import { Header } from "@components/Header";
 
-const initialValue: PlanetInfo = {
+const initialValue: PlanetsInfo = {
   count: 0,
   next: "",
   previous: "",
@@ -16,7 +16,7 @@ const initialValue: PlanetInfo = {
 };
 
 export const MainPage = () => {
-  const [planetsInfo, setPlanetsInfo] = useState<PlanetInfo>(initialValue);
+  const [planetsInfo, setPlanetsInfo] = useState<PlanetsInfo>(initialValue);
   const [isLoading, setIsLoading] = useState(false);
 
   const value = useMemo(
