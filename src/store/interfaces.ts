@@ -1,3 +1,4 @@
+import { ThemeEnum } from "@components/ThemeProvider/interfaces";
 import { Planet } from "@constants/interfaces";
 
 export interface PlanetInfo {
@@ -12,4 +13,9 @@ export interface SearchState {
   setPlanetsInfo: (planetInfo: PlanetInfo) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
+}
+
+export interface ThemeState {
+  theme: ThemeEnum;
+  toggleTheme: () => void;
 }

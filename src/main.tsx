@@ -1,11 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ErrorBoundary } from "@components/ErrorBoundary";
-import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ErrorPage } from "@pages/ErrorPage";
 import { DetailPage } from "@pages/DetailPage";
 import { MainPage } from "@pages/MainPage";
+import { GlobalStyles } from "./globalStyles";
+import { ThemeProvider } from "@components/ThemeProvider";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,10 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ErrorBoundary>
-      <RouterProvider router={router} />
+      <ThemeProvider>
+        <GlobalStyles />
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </ErrorBoundary>
   </StrictMode>,
 );

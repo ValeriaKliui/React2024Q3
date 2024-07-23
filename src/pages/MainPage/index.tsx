@@ -1,5 +1,3 @@
-import { ErrorButton } from "@components/ErrorButon";
-import { SearchForm } from "@components/SearchForm";
 import { PlanetsList } from "@components/PlanetsList";
 import SearchContext from "@store/searchContext";
 import { useMemo, useState } from "react";
@@ -8,6 +6,7 @@ import "./index.css";
 import { Pagination } from "@components/Pagination";
 import { PlanetInfo } from "@store/interfaces";
 import { useDetail } from "@hooks/useDetail";
+import { Header } from "@components/Header";
 
 const initialValue: PlanetInfo = {
   count: 0,
@@ -22,17 +21,14 @@ export const MainPage = () => {
 
   const value = useMemo(
     () => ({ planetsInfo, setPlanetsInfo, isLoading, setIsLoading }),
-    [planetsInfo, setPlanetsInfo, isLoading, setIsLoading],
+    [planetsInfo, setPlanetsInfo, isLoading, setIsLoading]
   );
 
   const { isDetailOpened } = useDetail();
 
   return (
     <SearchContext.Provider value={value}>
-      <div className="top">
-        <SearchForm />
-        <ErrorButton />
-      </div>
+      <Header />
       <div className={`content ${isDetailOpened ? "splitted" : ""}`}>
         <PlanetsList />
         <Outlet />

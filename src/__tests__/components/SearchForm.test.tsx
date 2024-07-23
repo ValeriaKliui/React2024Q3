@@ -1,5 +1,5 @@
 import { describe, it, vi } from "vitest";
-import { renderWithRouter, setup } from "../utils";
+import { renderWithProviders, setup } from "../utils";
 import { SearchForm } from "@components/SearchForm";
 import { screen } from "@testing-library/react";
 
@@ -18,7 +18,7 @@ describe("searchForm", () => {
     expect(mockSetItem).toHaveBeenCalledTimes(1);
   });
   it("component retrieves the value from the local storage upon mounting", () => {
-    renderWithRouter(<SearchForm />);
+    renderWithProviders(<SearchForm />);
 
     expect(screen.getByLabelText("search")).toHaveValue(searchedValue);
   });

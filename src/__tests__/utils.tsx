@@ -5,9 +5,9 @@ import { INIT_TEST_STATE } from "./mocks";
 import { ProvidersWrapper } from "./ProvidersWrapper";
 import { initialState } from "@store/searchContext";
 
-const renderWithRouter = (
+const renderWithProviders = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
+  options?: Omit<RenderOptions, "wrapper">,
 ) => {
   const withoutState = options?.state === false;
   const state = withoutState ? initialState : INIT_TEST_STATE;
@@ -21,7 +21,7 @@ const renderWithRouter = (
 };
 const setup = (ui: ReactElement) => ({
   user: userEvent.setup(),
-  ...renderWithRouter(ui),
+  ...renderWithProviders(ui),
 });
 
-export { renderWithRouter, setup };
+export { renderWithProviders, setup };

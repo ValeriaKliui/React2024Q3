@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { renderWithRouter, setup } from "../utils";
+import { renderWithProviders, setup } from "../utils";
 import { Pagination } from "@components/Pagination";
 
 const pagesAmount = 6;
@@ -11,11 +11,11 @@ describe("Pagination", () => {
   });
 
   it(`should display ${pagesAmount} pages`, () => {
-    const { getAllByRole } = renderWithRouter(
+    const { getAllByRole } = renderWithProviders(
       <>
         <a href={initPageUrl}>on {pagesAmount} page</a>
         <Pagination />
-      </>
+      </>,
     );
     const pages = getAllByRole("generic", { name: /page/i });
     const lastPageIndex = pages.length - 1;
@@ -31,7 +31,7 @@ describe("Pagination", () => {
     const { user } = setup(
       <>
         <Pagination />
-      </>
+      </>,
     );
 
     await user.click(screen.getByRole("generic", { name: `${newPage} page` }));
