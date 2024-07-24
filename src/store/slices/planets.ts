@@ -6,21 +6,33 @@ import { PlanetsInfo } from "@store/interfaces";
 const initialState: InitialState = {
   planets: [],
   count: 0,
+  selectedPlanets: [],
 };
 
-const slice = createSlice({
+const planetsSlice = createSlice({
   name: "planets",
   initialState,
-  reducers: {},
+  reducers: {
+    selectPlanet: (state, { payload }: PayloadAction<string>) => {
+      state.selectedPlanets = [...state.selectedPlanets, payload];
+    },
+    unselectPlanet: (state, { payload }: PayloadAction<string>) => {
+      state.selectedPlanets = state.selectedPlanets.filter(
+        (planet) => planet !== payload,
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(
       planetsApi.endpoints.getPlanets.matchFulfilled,
       (state, { payload }: PayloadAction<PlanetsInfo>) => {
         state.count = payload.count;
         state.planets = payload.results;
-      }
+      },
     );
   },
 });
 
-export default slice.reducer;
+export const { selectPlanet, unselectPlanet } = planetsSlice.actions;
+
+export default planetsSlice.reducer;

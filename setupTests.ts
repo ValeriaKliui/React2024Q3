@@ -6,7 +6,7 @@ import { setupServer } from "msw/node";
 
 export const handlers = [
   http.get(BASE_URL, async () => {
-    await delay(150);
+    await delay(0);
     return HttpResponse.json(INIT_TEST_STATE);
   }),
 ];

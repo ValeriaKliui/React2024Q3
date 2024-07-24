@@ -1,21 +1,17 @@
 import { Loader } from "@components/Loader";
-import { Planet } from "@constants/interfaces";
-import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import { DetailInfo } from "@components/DetailInfo";
 import { useDetail } from "@hooks/useDetail";
-import { useFetchPlanets } from "@hooks/useFetchPlanets";
-import { PlanetInfo } from "@store/interfaces";
 import { Container, CloseButton } from "./styled";
-import { useGetPlanetsQuery } from "@store/services/planetsApi";
+import { useGetPlanetInfoQuery } from "@store/services/planetsApi";
+import { SelectCheckbox } from "@components/SelectCheckbox";
 
 export const DetailedCard = () => {
   const { name: planetName } = useParams();
   const { closeDetail } = useDetail();
 
-  const searchUrlParams = `?search=${planetName}`;
-  console.log("s");
-  const { isFetching, data } = useGetPlanetsQuery({
+  const searchUrlParams = `search=${planetName}`;
+  const { isFetching, data } = useGetPlanetInfoQuery({
     searchUrlParams,
   });
 
@@ -36,6 +32,7 @@ export const DetailedCard = () => {
             climate={climate}
             gravity={gravity}
           />
+          <SelectCheckbox value={name} />
         </>
       )}
     </Container>

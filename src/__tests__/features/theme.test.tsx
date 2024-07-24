@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { setup } from "./utils";
 import { Header } from "@components/Header";
+import { setup } from "../utils";
 
 describe("theme", () => {
   it("button on top of the application for theme selection should change text form 'dark' to 'light' on click", async () => {

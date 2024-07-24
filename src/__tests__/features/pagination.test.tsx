@@ -1,12 +1,10 @@
-import { findByRole, screen } from "@testing-library/react";
 import { renderWithProviders, setup } from "../utils";
-import { Pagination } from "@components/Pagination";
 import { MainPage } from "@pages/MainPage";
 
 const pagesAmount = 6;
 const initPageUrl = `/?page=${pagesAmount}`;
 
-describe("Pagination", () => {
+describe("pagination", () => {
   beforeEach(() => {
     window.history.replaceState("", "", initPageUrl);
   });
@@ -16,7 +14,7 @@ describe("Pagination", () => {
       <>
         <a href={initPageUrl}>on {pagesAmount} page</a>
         <MainPage />
-      </>
+      </>,
     );
     const pages = await findAllByRole("generic", { name: /page/i });
     const lastPageIndex = pages.length - 1;

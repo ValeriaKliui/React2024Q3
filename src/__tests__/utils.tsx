@@ -13,7 +13,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
 
 const renderWithProviders = (
   ui: ReactElement,
-  extendedRenderOptions: ExtendedRenderOptions = {}
+  extendedRenderOptions: ExtendedRenderOptions = {},
 ) => {
   const {
     preloadedState = {},

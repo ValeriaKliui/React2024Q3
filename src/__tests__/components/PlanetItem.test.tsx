@@ -1,7 +1,7 @@
 import { describe, it } from "vitest";
 import { renderWithProviders, setup } from "../utils";
 import { PlanetItem } from "@components/PlanetItem";
-import { findAllByTestId, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { getDiameter } from "@utils/getDiameter";
 import { PlanetsList } from "@components/PlanetsList";
 

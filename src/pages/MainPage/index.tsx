@@ -4,9 +4,13 @@ import "./index.css";
 import { Pagination } from "@components/Pagination";
 import { useDetail } from "@hooks/useDetail";
 import { Header } from "@components/Header";
+import { SelectedInfo } from "@components/SelectedInfo";
+import { useSelectedPlanets } from "@hooks/useSelectedPlanets";
 
 export const MainPage = () => {
   const { isDetailOpened } = useDetail();
+  const { selectedPlanets } = useSelectedPlanets();
+  console.log(selectedPlanets);
 
   return (
     <>
@@ -16,6 +20,7 @@ export const MainPage = () => {
         <Outlet />
       </div>
       <Pagination />
+      {selectedPlanets.length > 0 && <SelectedInfo />}
     </>
   );
 };

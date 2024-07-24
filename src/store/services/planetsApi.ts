@@ -8,8 +8,11 @@ export const planetsApi = baseApi.injectEndpoints({
     getPlanets: build.query<PlanetsInfo, PlanetsParams>({
       query: ({ searchUrlParams }) => BASE_URL + "?" + searchUrlParams,
     }),
+    getPlanetInfo: build.query<PlanetsInfo, PlanetsParams>({
+      query: ({ searchUrlParams }) => BASE_URL + "?" + searchUrlParams,
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetPlanetsQuery } = planetsApi;
+export const { useGetPlanetsQuery, useGetPlanetInfoQuery } = planetsApi;
