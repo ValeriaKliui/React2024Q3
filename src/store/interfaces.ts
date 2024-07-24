@@ -8,13 +8,6 @@ export interface PlanetsInfo {
   results: Planet[];
 }
 
-export interface SearchState {
-  planetsInfo: PlanetsInfo;
-  setPlanetsInfo: (PlanetsInfo: PlanetsInfo) => void;
-  isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
-}
-
 export interface ThemeState {
   theme: ThemeEnum;
   toggleTheme: () => void;

@@ -1,23 +1,38 @@
-import { ReactElement } from "react";
+import { PropsWithChildren, ReactElement } from "react";
 import { render, RenderOptions } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { INIT_TEST_STATE } from "./mocks";
-import { ProvidersWrapper } from "./ProvidersWrapper";
-import { initialState } from "@store/searchContext";
+import { AppStore, RootState, setupStore } from "@store/store";
+import { ThemeProvider } from "@components/ThemeProvider";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+
+interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
+  preloadedState?: Partial<RootState>;
+  store?: AppStore;
+}
 
 const renderWithProviders = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">,
+  extendedRenderOptions: ExtendedRenderOptions = {}
 ) => {
-  const withoutState = options?.state === false;
-  const state = withoutState ? initialState : INIT_TEST_STATE;
+  const {
+    preloadedState = {},
+    store = setupStore(preloadedState),
+    ...renderOptions
+  } = extendedRenderOptions;
 
-  return render(ui, {
-    wrapper: ({ children }) => (
-      <ProvidersWrapper state={state}>{children}</ProvidersWrapper>
-    ),
-    ...options,
-  });
+  const Wrapper = ({ children }: PropsWithChildren) => (
+    <Provider store={store}>
+      <ThemeProvider>
+        <BrowserRouter>{children}</BrowserRouter>
+      </ThemeProvider>
+    </Provider>
+  );
+
+  return {
+    store,
+    ...render(ui, { wrapper: Wrapper, ...renderOptions }),
+  };
 };
 const setup = (ui: ReactElement) => ({
   user: userEvent.setup(),

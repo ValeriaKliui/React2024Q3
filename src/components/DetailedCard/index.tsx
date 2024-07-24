@@ -7,29 +7,24 @@ import { useDetail } from "@hooks/useDetail";
 import { useFetchPlanets } from "@hooks/useFetchPlanets";
 import { PlanetInfo } from "@store/interfaces";
 import { Container, CloseButton } from "./styled";
+import { useGetPlanetsQuery } from "@store/services/planetsApi";
 
 export const DetailedCard = () => {
-  const [planet, setPlanet] = useState<Planet | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const { name: planetName } = useParams();
   const { closeDetail } = useDetail();
 
-  const setItems = useCallback(
-    (res: PlanetInfo) => setPlanet(res.results[0]),
-    [setPlanet]
-  );
-
-  useFetchPlanets({
-    searchUrl: `search=${planetName}`,
-    setIsLoading,
-    setItems,
+  const searchUrlParams = `?search=${planetName}`;
+  console.log("s");
+  const { isFetching, data } = useGetPlanetsQuery({
+    searchUrlParams,
   });
 
+  const planet = data?.results[0];
   const { name, rotation_period, diameter, climate, gravity } = planet ?? {};
 
   return (
     <Container>
-      {isLoading ? (
+      {isFetching ? (
         <Loader testID="detail_loader" />
       ) : (
         <>

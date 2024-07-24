@@ -12,26 +12,28 @@ export const PlanetsList = () => {
   const [searchParams] = useSearchParams();
 
   const searchUrlParams = searchParams.toString();
-  const { isLoading } = useGetPlanetsQuery({
+  const { isFetching } = useGetPlanetsQuery({
     searchUrlParams,
   });
 
   const planets = useAppSelector(selectPlanets);
 
   const { openDetail, closeDetail } = useDetail();
-  console.log(planets.length, isLoading);
+
+  const getAddons = () => {
+    if (isFetching) return <Loader testID="planets_loader" />;
+    else if (planets.length === 0) return <h3>Planets weren't found</h3>;
+    return null;
+  };
 
   return (
     <Container>
-      {planets.length === 0 &&
-        (isLoading ? <Loader /> : <h3>Planets weren't found</h3>)}
-      {planets.length && !isLoading ? (
-        <List
-          items={planets}
-          onClick={closeDetail}
-          Item={(props) => <PlanetItem onClick={openDetail} {...props} />}
-        />
-      ) : null}
+      {getAddons()}
+      <List
+        items={planets}
+        onClick={closeDetail}
+        Item={(props) => <PlanetItem onClick={openDetail} {...props} />}
+      />
     </Container>
   );
 };

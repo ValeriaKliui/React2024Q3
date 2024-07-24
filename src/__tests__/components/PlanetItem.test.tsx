@@ -1,7 +1,7 @@
 import { describe, it } from "vitest";
 import { renderWithProviders, setup } from "../utils";
 import { PlanetItem } from "@components/PlanetItem";
-import { screen } from "@testing-library/react";
+import { findAllByTestId, screen } from "@testing-library/react";
 import { getDiameter } from "@utils/getDiameter";
 import { PlanetsList } from "@components/PlanetsList";
 
@@ -18,7 +18,7 @@ const PlanetComponent = (
 );
 
 describe("planetItem", () => {
-  it.todo("card component renders the relevant card data", () => {
+  it("card component renders the relevant card data", () => {
     renderWithProviders(PlanetComponent);
 
     expect(screen.getByText(name)).toBeInTheDocument();
@@ -26,12 +26,12 @@ describe("planetItem", () => {
     expect(screen.getByText(climate)).toBeInTheDocument();
   });
 
-  it.todo("clicking on a card opens a detailed card component", async () => {
-    const { user } = setup(<PlanetsList />);
+  it("clicking on a card opens a detailed card component", async () => {
+    const { user, findAllByTestId } = setup(<PlanetsList />);
 
     expect(window.location.href).not.toContain("detail");
 
-    await user.click(screen.getAllByTestId("planet")[0]);
+    await user.click((await findAllByTestId("planet"))[0]);
     expect(window.location.href).toContain("detail");
     expect(window.location.href).toContain(name);
   });

@@ -1,17 +1,17 @@
 import { ITEMS_PER_PAGE, PAGE_KEY } from "@constants/index";
-import SearchContext from "@store/searchContext";
-import { useContext } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Pages } from "@components/Pages";
+import { useSelector } from "react-redux";
+import { selectPlanetsCount } from "@store/selectors/planetsSelectors";
 
 export const Pagination = () => {
-  const { planetsInfo } = useContext(SearchContext);
+  const planetsTotal = useSelector(selectPlanetsCount);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const choosenPage = Number(searchParams.get(PAGE_KEY)) || 1;
 
-  const pagesAmount = planetsInfo.count
-    ? Math.ceil(planetsInfo.count / ITEMS_PER_PAGE)
+  const pagesAmount = planetsTotal
+    ? Math.ceil(planetsTotal / ITEMS_PER_PAGE)
     : 0;
 
   const onPageClick = (pageNum: number) => {

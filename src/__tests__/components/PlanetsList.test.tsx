@@ -1,29 +1,28 @@
 import { PlanetsList } from "@components/PlanetsList";
 import { INIT_TEST_STATE } from "../mocks";
 import { renderWithProviders } from "../utils";
-import { screen } from "@testing-library/react";
 
 describe("planetsList", () => {
-  it("appropriate message is displayed if no cards are present", () => {
-    renderWithProviders(<PlanetsList />, { state: false });
+  it("should show loader if planets are loading", () => {
+    const { getByTestId } = renderWithProviders(<PlanetsList />);
 
-    expect(screen.getByText(/weren't found/i)).toBeInTheDocument();
-  });
-  it.todo("component renders the specified number of cards", () => {
-    const planets = INIT_TEST_STATE.planetsInfo.results;
-
-    renderWithProviders(<PlanetsList />);
-
-    expect(screen.getAllByTestId("planet").length).toEqual(planets.length);
+    expect(getByTestId("planets_loader")).toBeInTheDocument();
   });
 
-  it.todo("list renders items according to data", () => {
-    const planets = INIT_TEST_STATE.planetsInfo.results;
+  it("component renders the specified number of cards", async () => {
+    const planets = INIT_TEST_STATE.results;
+    const { findAllByTestId } = renderWithProviders(<PlanetsList />);
 
-    renderWithProviders(<PlanetsList />);
+    expect((await findAllByTestId("planet")).length).toEqual(planets.length);
+  });
 
-    planets.forEach((planet) => {
-      expect(screen.getByText(planet.name)).toBeInTheDocument();
+  it("list renders items according to data", () => {
+    const planets = INIT_TEST_STATE.results;
+
+    const { findByText } = renderWithProviders(<PlanetsList />);
+
+    planets.forEach(async (planet) => {
+      expect(await findByText(planet.name)).toBeInTheDocument();
     });
   });
 });
