@@ -1,9 +1,0 @@
-.content {
-  padding: 2em;
-  flex-grow: 1;
-}
-
-.splitted {
-  display: flex;
-  gap: 5em;
-}

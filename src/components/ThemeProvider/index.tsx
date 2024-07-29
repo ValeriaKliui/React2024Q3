@@ -18,6 +18,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
   const choosenTheme = theme === ThemeEnum.light ? lightTheme : darkTheme;
 
+
   return (
     <ThemeContext.Provider value={value}>
       <Provider theme={choosenTheme}>{children}</Provider>

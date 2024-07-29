@@ -1,6 +1,6 @@
-import { getDiameter } from "@utils/getDiameter";
-import { PlanetItemProps } from "./interfaces";
-import { Container } from "./styled";
+import { getDiameter } from '@utils/getDiameter';
+import { PlanetItemProps } from './interfaces';
+import { Container } from './styled';
 
 export const PlanetItem = ({
   name,
@@ -11,7 +11,11 @@ export const PlanetItem = ({
   const diameterFormatted = getDiameter(diameter);
 
   return (
-    <Container onClick={() => onClick(name)} data-testid="planet">
+    <Container
+      onClick={() => onClick(name)}
+      data-testid="planet"
+      aria-label={`planet-${name}`}
+    >
       <h4 className="text_primary">{name}</h4>
       <p>
         <span className="text_bold">Diameter: </span>

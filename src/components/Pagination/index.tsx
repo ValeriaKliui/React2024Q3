@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Pages } from "@components/Pages";
 import { useSelector } from "react-redux";
 import { selectPlanetsCount } from "@store/selectors/planetsSelectors";
+import { Container } from "./styled";
 
 export const Pagination = () => {
   const planetsTotal = useSelector(selectPlanetsCount);
@@ -20,10 +21,12 @@ export const Pagination = () => {
   };
 
   return (
-    <Pages
-      pagesAmount={pagesAmount}
-      choosenPage={choosenPage}
-      onPageClick={onPageClick}
-    />
+    <Container>
+      <Pages
+        pagesAmount={pagesAmount}
+        choosenPage={choosenPage}
+        onPageClick={onPageClick}
+      />
+    </Container>
   );
 };

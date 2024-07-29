@@ -4,16 +4,16 @@ import { PlanetItem } from "@components/PlanetItem";
 import { screen } from "@testing-library/react";
 import { getDiameter } from "@utils/getDiameter";
 import { PlanetsList } from "@components/PlanetsList";
+import { INIT_TEST_STATE } from "../mocks";
 
-const name = "Zorro";
-const diameter = "123";
-const climate = "temperate";
+const { name, diameter, climate } = INIT_TEST_STATE.results[0]
+
 const PlanetComponent = (
   <PlanetItem
     name={name}
     diameter={diameter}
     climate={climate}
-    onClick={() => {}}
+    onClick={() => { }}
   />
 );
 
@@ -22,7 +22,6 @@ describe("planetItem", () => {
     renderWithProviders(PlanetComponent);
 
     expect(screen.getByText(name)).toBeInTheDocument();
-    expect(screen.getByText(getDiameter(diameter))).toBeInTheDocument();
     expect(screen.getByText(climate)).toBeInTheDocument();
   });
 

@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { InitialState } from "./interfaces";
-import { planetsApi } from "@store/services/planetsApi";
-import { PlanetsInfo } from "@store/interfaces";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { InitialState } from './interfaces';
+import { planetsApi } from '@store/services/planetsApi';
+import { PlanetsInfo } from '@store/interfaces';
 
 const initialState: InitialState = {
   planets: [],
@@ -10,7 +10,7 @@ const initialState: InitialState = {
 };
 
 const planetsSlice = createSlice({
-  name: "planets",
+  name: 'planets',
   initialState,
   reducers: {
     selectPlanet: (state, { payload }: PayloadAction<string>) => {
@@ -18,8 +18,11 @@ const planetsSlice = createSlice({
     },
     unselectPlanet: (state, { payload }: PayloadAction<string>) => {
       state.selectedPlanets = state.selectedPlanets.filter(
-        (planet) => planet !== payload,
+        (planet) => planet !== payload
       );
+    },
+    unselectAllPlanets: (state) => {
+      state.selectedPlanets = [];
     },
   },
   extraReducers: (builder) => {
@@ -28,11 +31,12 @@ const planetsSlice = createSlice({
       (state, { payload }: PayloadAction<PlanetsInfo>) => {
         state.count = payload.count;
         state.planets = payload.results;
-      },
+      }
     );
   },
 });
 
-export const { selectPlanet, unselectPlanet } = planetsSlice.actions;
+export const { selectPlanet, unselectPlanet, unselectAllPlanets } =
+  planetsSlice.actions;
 
 export default planetsSlice.reducer;

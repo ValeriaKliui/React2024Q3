@@ -1,7 +1,11 @@
-import { selectSelectedPlanets } from "@store/selectors/planetsSelectors";
-import { useAppDispatch, useAppSelector } from "./reduxTypedHooks";
-import { selectPlanet, unselectPlanet } from "@store/slices/planets";
-import { useCallback, useMemo } from "react";
+import { selectSelectedPlanets } from '@store/selectors/planetsSelectors';
+import { useAppDispatch, useAppSelector } from './reduxTypedHooks';
+import {
+  selectPlanet,
+  unselectAllPlanets,
+  unselectPlanet,
+} from '@store/slices/planets';
+import { useCallback, useMemo } from 'react';
 
 export const useSelectedPlanets = (value?: string) => {
   const dispatch = useAppDispatch();
@@ -12,14 +16,19 @@ export const useSelectedPlanets = (value?: string) => {
     (value: string) => {
       dispatch(selectPlanet(value));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const unselect = useCallback(
     (value: string) => {
       dispatch(unselectPlanet(value));
     },
-    [dispatch],
+    [dispatch]
+  );
+
+  const unselectAll = useCallback(
+    () => dispatch(unselectAllPlanets()),
+    [dispatch]
   );
 
   const memoized = useMemo(
@@ -28,8 +37,9 @@ export const useSelectedPlanets = (value?: string) => {
       selectPlanet: select,
       unselectPlanet: unselect,
       selectedPlanets,
+      unselectAll,
     }),
-    [isSelected, unselect, select, selectedPlanets],
+    [isSelected, unselect, select, selectedPlanets, unselectAll]
   );
 
   return memoized;

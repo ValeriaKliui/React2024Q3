@@ -1,5 +1,6 @@
 import { Input } from "@components/Input";
 import { useSelectedPlanets } from "@hooks/useSelectedPlanets";
+import { Label } from "./styled";
 
 export const SelectCheckbox = ({ value }) => {
   const { isSelected, selectPlanet, unselectPlanet } =
@@ -11,11 +12,15 @@ export const SelectCheckbox = ({ value }) => {
   };
 
   return (
-    <Input
-      type="checkbox"
-      value={value}
-      onChange={onSelect}
-      checked={isSelected}
-    />
+    <Label>
+      Add to favourite
+      <Input
+        type="checkbox"
+        value={value}
+        onChange={onSelect}
+        checked={isSelected}
+      />
+    </Label>
+
   );
 };

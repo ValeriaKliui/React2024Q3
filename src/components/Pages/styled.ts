@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -9,14 +9,16 @@ export const Container = styled.div`
 export const Page = styled.div<{ $active: boolean }>`
   width: 50px;
   height: 50px;
-  background-color: ${({ $active }) =>
-    $active ? "white" : "rgba(214, 24, 100, 0.8)"};
-  color: ${({ $active }) => ($active ? "rgba(214, 24, 100, 0.8)" : "white")};
+  background-color: ${({ $active, theme: { colors } }) =>
+    $active ? colors.light : colors.secondary};
+  color: ${({ $active, theme: { colors } }) =>
+    $active ? colors.secondary : colors.light};
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   border: 4px solid
-    ${({ $active }) => ($active ? "rgba(214, 24, 100, 0.8)" : "transparent")};
+    ${({ $active, theme: { colors } }) =>
+      $active ? colors.secondary : 'transparent'};
   font-weight: ${({ $active }) => ($active ? 700 : 400)};
 `;
