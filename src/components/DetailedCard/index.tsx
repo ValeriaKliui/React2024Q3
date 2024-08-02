@@ -1,5 +1,5 @@
 import { Loader } from "@components/Loader";
-import { useParams } from "react-router-dom";
+import { useParams } from 'next/navigation'
 import { DetailInfo } from "@components/DetailInfo";
 import { useDetail } from "@hooks/useDetail";
 import { Container, CloseButton } from "./styled";
@@ -7,7 +7,8 @@ import { useGetPlanetInfoQuery } from "@store/services/planetsApi";
 import { SelectCheckbox } from "@components/SelectCheckbox";
 
 export const DetailedCard = () => {
-  const { name: planetName } = useParams();
+  const params = useParams();
+  const { name: planetName } = params ?? {};
   const { closeDetail } = useDetail();
 
   const searchUrlParams = `search=${planetName}`;

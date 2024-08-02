@@ -13,7 +13,6 @@ export const SelectedInfo = () => {
   const preparedPlanets = prepareArrToCsv(selectedPlanets, 'planet')
 
   const planetsUrlCsv = getCsvUrl(preparedPlanets)
-  console.log(planetsUrlCsv)
 
   return (
     <Container data-testid="flyout">

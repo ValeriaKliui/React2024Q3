@@ -1,29 +1,20 @@
-import {
-  createSearchParams,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { useRouter, useParams } from 'next/navigation';
 
 export const useDetail = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const { name } = useParams();
+  const { replace, push } = useRouter();
+
+  const params = useParams();
+  const { name } = params ?? {};
 
   const isDetailOpened = !!name;
 
   const openDetail = (name: string) => {
-    navigate({
-      pathname: `detail/${name}`,
-      search: createSearchParams(searchParams).toString(),
-    });
+    if (isDetailOpened) replace(`/detail/${name}/`);
+    else push(`/detail/${name}/`);
   };
+
   const closeDetail = () => {
-    isDetailOpened &&
-      navigate({
-        pathname: `/`,
-        search: createSearchParams(searchParams).toString(),
-      });
+    replace('/');
   };
 
   return { openDetail, closeDetail, isDetailOpened };

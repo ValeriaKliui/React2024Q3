@@ -4,7 +4,6 @@ import userEvent from "@testing-library/user-event";
 import { AppStore, RootState, setupStore } from "@store/store";
 import { ThemeProvider } from "@components/ThemeProvider";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: Partial<RootState>;
@@ -22,11 +21,12 @@ const renderWithProviders = (
   } = extendedRenderOptions;
 
   const Wrapper = ({ children }: PropsWithChildren) => (
-    <Provider store={store}>
-      <ThemeProvider>
-        <BrowserRouter>{children}</BrowserRouter>
-      </ThemeProvider>
-    </Provider>
+    <>{children}</>
+    // <Provider store={store}>
+    //   <ThemeProvider>
+    //     <BrowserRouter>{children}</BrowserRouter>
+    //   </ThemeProvider>
+    // </Provider>
   );
 
   return {

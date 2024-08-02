@@ -1,9 +1,9 @@
 import { setup } from '../utils';
 import { SelectCheckbox } from '@components/SelectCheckbox';
-import { MainPage } from '@pages/MainPage';
-import { DetailPage } from '@pages/DetailPage';
 import { screen } from '@testing-library/react';
 import { INIT_TEST_STATE } from '../mocks';
+import MainPage from '@pages/index';
+import DetailPage from '@pages/detail/[name]';
 
 describe('selected items', () => {
   it('clicking on select button should choose the checkbox', async () => {

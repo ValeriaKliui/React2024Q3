@@ -1,8 +1,30 @@
+import MainPage from "@pages/index";
+import { vi } from "vitest";
 import { renderWithProviders, setup } from "../utils";
-import { MainPage } from "@pages/MainPage";
 
 const pagesAmount = 6;
 const initPageUrl = `/?page=${pagesAmount}`;
+
+vi.mock('next/router', () => ({
+  useRouter() {
+    return {
+      pathname: '/mock-path',
+      query: { mockKey: 'mockValue' },
+      push: vi.fn(),
+    };
+  },
+}));
+vi.mock("next/navigation", () => ({
+  useRouter() {
+    return {
+      prefetch: () => null
+    };
+  },
+  useParams() { return {} },
+  usePathname() { return {} },
+  useSearchParams() { return {} },
+}));
+
 
 describe("pagination", () => {
   beforeEach(() => {
