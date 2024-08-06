@@ -1,6 +1,6 @@
-import { getDiameter } from '@utils/getDiameter';
-import { PlanetItemProps } from './interfaces';
-import { Container } from './styled';
+import { getDiameter } from "@utils/getDiameter";
+import { PlanetItemProps } from "./interfaces";
+import { Container } from "./styled";
 
 export const PlanetItem = ({
   name,

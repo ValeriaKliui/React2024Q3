@@ -1,13 +1,13 @@
-import { BaseTheme, ConcreteTheme, ThemeEnum } from './interfaces';
+import { BaseTheme, ConcreteTheme, ThemeEnum } from "./interfaces";
 
 export const baseTheme: BaseTheme = {
   colors: {
-    primary: 'rgba(0, 123, 255, 0.4);',
-    primary_bright: 'rgb(0, 123, 255)',
-    secondary: 'rgba(214, 24, 100, 0.8)',
-    light: 'rgb(255, 255, 255)',
-    font: 'rgb(0, 0, 0)',
-    bg: 'rgb(255, 255, 255)',
+    primary: "rgba(0, 123, 255, 0.4);",
+    primary_bright: "rgb(0, 123, 255)",
+    secondary: "rgba(214, 24, 100, 0.8)",
+    light: "rgb(255, 255, 255)",
+    font: "rgb(0, 0, 0)",
+    bg: "rgb(255, 255, 255)",
   },
 };
 
@@ -21,7 +21,7 @@ export const darkTheme: ConcreteTheme = {
   type: ThemeEnum.dark,
   colors: {
     ...baseTheme.colors,
-    bg: 'rgba(0, 0, 0, 0.9)',
-    font: 'rgb(255, 255, 255)',
+    bg: "rgba(0, 0, 0, 0.9)",
+    font: "rgb(255, 255, 255)",
   },
 };

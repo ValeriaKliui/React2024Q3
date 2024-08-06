@@ -12,7 +12,7 @@ describe("detailedCard", () => {
   });
 
   it("detailed card component correctly displays the detailed card data", async () => {
-    const { findByText, } = renderWithProviders(<DetailedCard />);
+    const { findByText } = renderWithProviders(<DetailedCard />);
 
     expect(await findByText(planet.name)).toBeInTheDocument();
     expect(await findByText(planet.climate)).toBeInTheDocument();

@@ -1,49 +1,39 @@
-import { setup } from '../utils';
-import { SelectCheckbox } from '@components/SelectCheckbox';
-import { screen } from '@testing-library/react';
-import { INIT_TEST_STATE } from '../mocks';
-import MainPage from '@pages/index';
-import DetailPage from '@pages/detail/[name]';
+import { setup } from "../utils";
+import { SelectCheckbox } from "@components/SelectCheckbox";
+import { screen } from "@testing-library/react";
+import { INIT_TEST_STATE } from "../mocks";
+import MainPage from "@pages/index";
+import DetailPage from "@pages/detail/[name]";
 
-describe('selected items', () => {
-  it('clicking on select button should choose the checkbox', async () => {
-    const { user, getByRole } = setup(
-      <SelectCheckbox value="zorro" />
-    );
-    const checkbox = getByRole('checkbox');
+describe("selected items", () => {
+  it("clicking on select button should choose the checkbox", async () => {
+    const { user, getByRole } = setup(<SelectCheckbox value="zorro" />);
+    const checkbox = getByRole("checkbox");
     expect(checkbox).not.toBeChecked();
     await user.click(checkbox);
     expect(checkbox).toBeChecked();
   });
 
-  it('when at least 1 item has been selected, the flyout element should appear at the bottom', async () => {
+  it("when at least 1 item has been selected, the flyout element should appear at the bottom", async () => {
     const planets = INIT_TEST_STATE.results;
-    const {
-      user,
-      findByRole,
-      getByTestId,
-      queryByTestId
-      , getByText
-    } = setup(
+    const { user, findByRole, getByTestId, queryByTestId, getByText } = setup(
       <>
         <MainPage />
         <DetailPage />
-      </>
+      </>,
     );
 
-    expect(queryByTestId('flyout')).not.toBeInTheDocument()
+    expect(queryByTestId("flyout")).not.toBeInTheDocument();
 
     await user
       .click(
-        await findByRole('generic', {
+        await findByRole("generic", {
           name: `planet-${planets[0].name}`,
-        })
+        }),
       )
-      .then(
-        async () => await user.click(screen.getByRole('checkbox'))
-      )
+      .then(async () => await user.click(screen.getByRole("checkbox")));
 
-    expect(getByTestId('flyout')).toBeInTheDocument()
-    expect(getByText(/1 item is selected/)).toBeInTheDocument()
+    expect(getByTestId("flyout")).toBeInTheDocument();
+    expect(getByText(/1 item is selected/)).toBeInTheDocument();
   });
 });

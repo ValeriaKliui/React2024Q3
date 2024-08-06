@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import CloseIcon from '@assets/icons/close.svg';
+import styled from "styled-components";
+import CloseIcon from "@assets/icons/close.svg";
 
 export const CloseButton = styled(CloseIcon)`
   width: 40px;

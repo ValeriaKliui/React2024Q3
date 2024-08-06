@@ -5,11 +5,11 @@ import { renderWithProviders, setup } from "../utils";
 const pagesAmount = 6;
 const initPageUrl = `/?page=${pagesAmount}`;
 
-vi.mock('next/router', () => ({
+vi.mock("next/router", () => ({
   useRouter() {
     return {
-      pathname: '/mock-path',
-      query: { mockKey: 'mockValue' },
+      pathname: "/mock-path",
+      query: { mockKey: "mockValue" },
       push: vi.fn(),
     };
   },
@@ -17,14 +17,19 @@ vi.mock('next/router', () => ({
 vi.mock("next/navigation", () => ({
   useRouter() {
     return {
-      prefetch: () => null
+      prefetch: () => null,
     };
   },
-  useParams() { return {} },
-  usePathname() { return {} },
-  useSearchParams() { return {} },
+  useParams() {
+    return {};
+  },
+  usePathname() {
+    return {};
+  },
+  useSearchParams() {
+    return {};
+  },
 }));
-
 
 describe("pagination", () => {
   beforeEach(() => {

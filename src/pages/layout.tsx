@@ -8,19 +8,19 @@ import { SelectedInfo } from "@components/SelectedInfo";
 import { FC, ReactNode } from "react";
 
 export const Layout: FC<{ children?: ReactNode }> = ({ children }) => {
-    const { isDetailOpened } = useDetail();
-    const { selectedPlanets } = useSelectedPlanets();
+  const { isDetailOpened } = useDetail();
+  const { selectedPlanets } = useSelectedPlanets();
 
-    return <>
-        <Header />
-        <Content
-            className={`content ${isDetailOpened ? 'splitted' : ''}`}
-        >
-            <PlanetsList />
-            {children}
-        </Content>
-        <Pagination />
-        {selectedPlanets.length > 0 && <SelectedInfo />}
+  return (
+    <>
+      <Header />
+      <Content className={`content ${isDetailOpened ? "splitted" : ""}`}>
+        <PlanetsList />
+        {children}
+      </Content>
+      <Pagination />
+      {selectedPlanets.length > 0 && <SelectedInfo />}
     </>
-}
-export { Layout as default } 
+  );
+};
+export { Layout as default };

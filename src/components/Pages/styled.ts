@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -19,6 +19,6 @@ export const Page = styled.div<{ $active: boolean }>`
   cursor: pointer;
   border: 4px solid
     ${({ $active, theme: { colors } }) =>
-      $active ? colors.secondary : 'transparent'};
+      $active ? colors.secondary : "transparent"};
   font-weight: ${({ $active }) => ($active ? 700 : 400)};
 `;

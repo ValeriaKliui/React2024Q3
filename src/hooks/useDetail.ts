@@ -1,4 +1,4 @@
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter, useParams } from "next/navigation";
 
 export const useDetail = () => {
   const { replace, push } = useRouter();
@@ -14,7 +14,7 @@ export const useDetail = () => {
   };
 
   const closeDetail = () => {
-    replace('/');
+    replace("/");
   };
 
   return { openDetail, closeDetail, isDetailOpened };

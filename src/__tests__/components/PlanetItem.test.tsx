@@ -2,11 +2,10 @@ import { describe, it } from "vitest";
 import { renderWithProviders, setup } from "../utils";
 import { PlanetItem } from "@components/PlanetItem";
 import { screen } from "@testing-library/react";
-import { getDiameter } from "@utils/getDiameter";
 import { PlanetsList } from "@components/PlanetsList";
 import { INIT_TEST_STATE } from "../mocks";
 
-const { name, diameter, climate } = INIT_TEST_STATE.results[0]
+const { name, diameter, climate } = INIT_TEST_STATE.results[0];
 
 const PlanetComponent = (
   <PlanetItem

@@ -21,6 +21,5 @@ export const SelectCheckbox = ({ value }) => {
         checked={isSelected}
       />
     </Label>
-
   );
 };

@@ -1,18 +1,17 @@
-import { Button } from '@components/Button';
-import { useSelectedPlanets } from '@hooks/useSelectedPlanets';
-import { getCsvUrl } from '@utils/getCsvUrl';
-import { prepareArrToCsv } from '@utils/prepareArrToCsv';
-import { Container } from './styled';
+import { Button } from "@components/Button";
+import { useSelectedPlanets } from "@hooks/useSelectedPlanets";
+import { getCsvUrl } from "@utils/getCsvUrl";
+import { prepareArrToCsv } from "@utils/prepareArrToCsv";
+import { Container } from "./styled";
 
 export const SelectedInfo = () => {
   const { selectedPlanets, unselectAll } = useSelectedPlanets();
   const planetsAmount = selectedPlanets.length;
 
-  const text =
-    planetsAmount === 1 ? 'item is selected' : 'items are selected';
-  const preparedPlanets = prepareArrToCsv(selectedPlanets, 'planet')
+  const text = planetsAmount === 1 ? "item is selected" : "items are selected";
+  const preparedPlanets = prepareArrToCsv(selectedPlanets, "planet");
 
-  const planetsUrlCsv = getCsvUrl(preparedPlanets)
+  const planetsUrlCsv = getCsvUrl(preparedPlanets);
 
   return (
     <Container data-testid="flyout">

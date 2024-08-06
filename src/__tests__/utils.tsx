@@ -2,8 +2,6 @@ import { PropsWithChildren, ReactElement } from "react";
 import { render, RenderOptions } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AppStore, RootState, setupStore } from "@store/store";
-import { ThemeProvider } from "@components/ThemeProvider";
-import { Provider } from "react-redux";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: Partial<RootState>;

@@ -1,12 +1,12 @@
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from "styled-components";
 
 export enum ThemeEnum {
-  light = 'light',
-  dark = 'dark',
+  light = "light",
+  dark = "dark",
 }
 export type ThemeProviderProps = Omit<
   Parameters<typeof ThemeProvider>[0],
-  'theme'
+  "theme"
 >;
 
 export interface BaseTheme {

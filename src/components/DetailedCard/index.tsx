@@ -1,5 +1,5 @@
 import { Loader } from "@components/Loader";
-import { useParams } from 'next/navigation'
+import { useParams } from "next/navigation";
 import { DetailInfo } from "@components/DetailInfo";
 import { useDetail } from "@hooks/useDetail";
 import { Container, CloseButton } from "./styled";

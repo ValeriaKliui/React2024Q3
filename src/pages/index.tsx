@@ -1,10 +1,5 @@
-import Layout from './layout';
-import Providers from './providers';
+import Layout from "./layout";
 
 export default function MainPage() {
-    return (
-        <Providers>
-            <Layout />
-        </Providers>
-    );
+  return <Layout />;
 }
