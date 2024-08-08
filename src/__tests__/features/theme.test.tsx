@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { Header } from "@components/Header";
 import { setup } from "../utils";
-import Providers from "@pages/providers";
+import Providers from "../../app/ui/providers";
 
 vi.mock("next/router", () => ({
   useRouter() {

@@ -1,3 +1,6 @@
+
+'use client';
+
 import { Loader } from "@components/Loader";
 import { useParams } from "next/navigation";
 import { DetailInfo } from "@components/DetailInfo";

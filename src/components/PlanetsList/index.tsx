@@ -1,3 +1,4 @@
+'use client';
 import { List } from "@components/List";
 import { PlanetItem } from "@components/PlanetItem";
 import { useSearchParams } from "next/navigation";
@@ -6,10 +7,8 @@ import { Container } from "./styled";
 import { useGetPlanetsQuery } from "@store/services/planetsApi";
 import { useAppSelector } from "@hooks/reduxTypedHooks";
 import { selectPlanets } from "@store/selectors/planetsSelectors";
-import { useRouter } from "next/router";
 
 export const PlanetsList = () => {
-  const { isReady } = useRouter();
   const searchParams = useSearchParams();
 
   const searchUrlParams = searchParams?.toString() ?? "";
@@ -18,7 +17,6 @@ export const PlanetsList = () => {
     {
       searchUrlParams,
     },
-    { skip: !isReady },
   );
 
   const planets = useAppSelector(selectPlanets);

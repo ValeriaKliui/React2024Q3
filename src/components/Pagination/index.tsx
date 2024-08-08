@@ -1,13 +1,15 @@
+'use client';
+
 import { ITEMS_PER_PAGE, PAGE_KEY } from "@constants/index";
 import { useSearchParams } from "next/navigation";
 import { Pages } from "@components/Pages";
 import { useSelector } from "react-redux";
 import { selectPlanetsCount } from "@store/selectors/planetsSelectors";
 import { Container } from "./styled";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export const Pagination = () => {
-  const { push, query } = useRouter();
+  const { push, } = useRouter();
   const planetsTotal = useSelector(selectPlanetsCount);
   const searchParams = useSearchParams();
 
@@ -22,7 +24,8 @@ export const Pagination = () => {
     const params = searchParams && new URLSearchParams(searchParams);
     params?.set(PAGE_KEY, String(pageNum));
 
-    push({ query: params?.toString(), pathname: query?.name });
+    const url = `?${params?.toString()}`
+    push(url);
   };
 
   return (

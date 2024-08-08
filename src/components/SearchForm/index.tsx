@@ -7,7 +7,7 @@ import { PAGE_KEY, SEARCH_KEY } from "@constants/index";
 import { useLocalStorage } from "@hooks/useLocalStorage";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Form } from "./styled";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/navigation';
 
 export const SearchForm = () => {
   const [savedSearchValue, saveSearchValue] = useLocalStorage<string>(

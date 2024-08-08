@@ -1,3 +1,5 @@
+'use client'
+
 import { FC, useCallback, useMemo, useState } from "react";
 import { ThemeProvider as Provider } from "styled-components";
 import { ThemeEnum, ThemeProviderProps } from "./interfaces";

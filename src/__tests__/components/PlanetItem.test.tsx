@@ -12,7 +12,7 @@ const PlanetComponent = (
     name={name}
     diameter={diameter}
     climate={climate}
-    onClick={() => { }}
+    onClick={() => {}}
   />
 );
 

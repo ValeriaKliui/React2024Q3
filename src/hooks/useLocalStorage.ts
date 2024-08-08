@@ -1,24 +1,27 @@
-"use client";
+'use client';
 
-import { PAGE_KEY, SEARCH_KEY } from "@constants/index";
-import { useCallback, useEffect, useRef } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { PAGE_KEY, SEARCH_KEY } from '@constants/index';
+import { useCallback, useEffect, useRef } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export const useLocalStorage = <T>(key: string, initialValue?: T) => {
-  const { replace, isReady } = useRouter();
+  const { replace } = useRouter();
   const pathname = usePathname();
 
   const getInitialValue = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const savedValue = localStorage.getItem(key);
       if (savedValue) return JSON.parse(savedValue);
-      return initialValue ?? "";
+      return initialValue ?? '';
     }
   };
 
   const valueRef = useRef(getInitialValue());
-  const setValue = useCallback((value: T) => (valueRef.current = value), []);
+  const setValue = useCallback(
+    (value: T) => (valueRef.current = value),
+    []
+  );
 
   const searchParams = useSearchParams();
 
@@ -28,12 +31,14 @@ export const useLocalStorage = <T>(key: string, initialValue?: T) => {
 
   useEffect(() => {
     if (valueRef.current) {
-      const params = searchParams && new URLSearchParams(searchParams);
+      const params =
+        searchParams && new URLSearchParams(searchParams);
       params?.set(SEARCH_KEY, valueRef.current);
-      params?.set(PAGE_KEY, "1");
-      isReady && replace(`${pathname}?${params?.toString()}`);
+      params?.set(PAGE_KEY, '1');
+
+      replace(`${pathname}?${params?.toString()}`);
     }
-  }, [searchParams?.size, replace, isReady, pathname, searchParams]);
+  }, [searchParams?.size, pathname]);
 
   return [valueRef.current, setValue];
 };

@@ -15,8 +15,7 @@ export const Header = () => {
 
   return (
     <HeaderStyled>
-      <SearchForm />
-      <Button onClick={toggleTheme}>{themeName} theme</Button>
+      <SearchForm /> <Button onClick={toggleTheme}>{themeName} theme</Button>
     </HeaderStyled>
   );
 };
