@@ -4,8 +4,15 @@ import { MainPage } from "@pages/MainPage";
 import { DetailPage } from "@pages/DetailPage";
 import { screen } from "@testing-library/react";
 import { INIT_TEST_STATE } from "../mocks";
+import { vi } from "vitest";
 
 describe("selected items", () => {
+  window.URL.createObjectURL = vi.fn();
+
+  afterEach(() => {
+    window.URL.createObjectURL.mockReset();
+  });
+
   it("clicking on select button should choose the checkbox", async () => {
     const { user, getByRole } = setup(<SelectCheckbox value="zorro" />);
     const checkbox = getByRole("checkbox");
