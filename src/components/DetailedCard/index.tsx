@@ -16,7 +16,13 @@ export const DetailedCard = () => {
   });
 
   const planet = data?.results[0];
-  const { name = '', rotation_period, diameter, climate, gravity } = planet ?? {};
+  const {
+    name = "",
+    rotation_period,
+    diameter,
+    climate,
+    gravity,
+  } = planet ?? {};
 
   return (
     <Container>

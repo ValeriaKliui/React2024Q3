@@ -7,11 +7,13 @@ import { INIT_TEST_STATE } from "../mocks";
 import { MockedFunction, vi } from "vitest";
 
 describe("selected items", () => {
-  let mockedFunc = window.URL.createObjectURL as MockedFunction<typeof window.URL.createObjectURL>;
-  mockedFunc = vi.fn();
+  window.URL.createObjectURL = vi.fn();
 
   afterEach(() => {
-    mockedFunc.mockReset()
+    const mockedFunc = window.URL.createObjectURL as MockedFunction<
+      typeof window.URL.createObjectURL
+    >;
+    mockedFunc.mockReset();
   });
 
   it("clicking on select button should choose the checkbox", async () => {
