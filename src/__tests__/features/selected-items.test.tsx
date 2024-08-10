@@ -4,13 +4,14 @@ import { MainPage } from "@pages/MainPage";
 import { DetailPage } from "@pages/DetailPage";
 import { screen } from "@testing-library/react";
 import { INIT_TEST_STATE } from "../mocks";
-import { vi } from "vitest";
+import { MockedFunction, vi } from "vitest";
 
 describe("selected items", () => {
-  window.URL.createObjectURL = vi.fn();
+  let mockedFunc = window.URL.createObjectURL as MockedFunction<typeof window.URL.createObjectURL>;
+  mockedFunc = vi.fn();
 
   afterEach(() => {
-    window.URL.createObjectURL.mockReset();
+    mockedFunc.mockReset()
   });
 
   it("clicking on select button should choose the checkbox", async () => {
