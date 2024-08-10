@@ -70,4 +70,3 @@ dist
 .dynamodb/
 
 .tern-port
-node_modules
